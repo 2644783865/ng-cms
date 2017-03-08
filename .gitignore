@@ -1,6 +1,9 @@
-packages/
-BaseBackend/obj/
-BaseBackend/bin/
-BaseApi/obj/
-BaseApi/bin/
 .vs/
+packages/
+NgCmsBackend/obj/
+NgCmsBackend/bin/
+NgCmsApi/obj/
+NgCmsApi/bin/
+NgCmsWeb/obj/
+NgCmsWeb/bin/
+NgCmsWeb/node_modules

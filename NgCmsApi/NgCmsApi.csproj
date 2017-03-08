@@ -215,7 +215,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseBackend\BaseBackend.csproj">
+    <ProjectReference Include="..\NgCmsBackend\NgCmsBackend.csproj">
       <Project>{7235a8ac-9cad-4463-88f4-ba0b1b4e760d}</Project>
       <Name>BaseBackend</Name>
     </ProjectReference>
