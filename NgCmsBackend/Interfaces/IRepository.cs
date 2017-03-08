@@ -6,7 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseBackend.Interfaces
+namespace NgCmsBackend.Interfaces
 {
     public interface IRepository<T> where T: class
     {

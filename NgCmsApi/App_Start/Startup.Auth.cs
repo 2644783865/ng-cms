@@ -8,12 +8,12 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using BaseApi.Providers;
-using BaseApi.Models;
-using BaseBackend.DbContexts;
+using NgCmsApi.Providers;
+using NgCmsApi.Models;
+using NgCmsBackend.DbContexts;
 using Microsoft.Owin.Cors;
 
-namespace BaseApi
+namespace NgCmsApi
 {
     public partial class Startup
     {

@@ -13,11 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using BaseApi.Models;
-using BaseApi.Providers;
-using BaseBackend;
+using NgCmsApi.Models;
+using NgCmsApi.Providers;
+using NgCmsBackend;
 
-namespace BaseApi.Controllers
+namespace NgCmsApi.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

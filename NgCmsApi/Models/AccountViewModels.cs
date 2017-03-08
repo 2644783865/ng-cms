@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BaseApi.Models
+namespace NgCmsApi.Models
 {
     // Models returned by AccountController actions.
 

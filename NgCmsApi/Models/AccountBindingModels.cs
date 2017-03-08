@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace BaseApi.Models
+namespace NgCmsApi.Models
 {
     // Models used as parameters to AccountController actions.
 

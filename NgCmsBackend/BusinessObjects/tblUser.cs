@@ -5,9 +5,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using BaseBackend.Interfaces;
+using NgCmsBackend.Interfaces;
 
-namespace BaseBackend
+namespace NgCmsBackend
 {
     public partial class tblUser : IUser<int>, IBaseEntity
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseBackend.DbContexts
+namespace NgCmsBackend.DbContexts
 {
     public class BaseDbContext : BaseEntities
     {

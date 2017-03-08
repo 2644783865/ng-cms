@@ -1,4 +1,4 @@
-﻿namespace BaseBackend.Enums
+﻿namespace NgCmsBackend.Enums
 {
     public enum RoleEnum
     {

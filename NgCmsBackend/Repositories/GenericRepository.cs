@@ -7,11 +7,11 @@ using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
-using BaseBackend.DbContexts;
-using BaseBackend.Interfaces;
-using BaseBackend.Services;
+using NgCmsBackend.DbContexts;
+using NgCmsBackend.Interfaces;
+using NgCmsBackend.Services;
 
-namespace BaseBackend.Repositories
+namespace NgCmsBackend.Repositories
 {
     public abstract class GenericRepository<C, T> : IRepository<T> where C : BaseDbContext, new() where T : class
     {

@@ -4,9 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BaseBackend.DbContexts;
+using NgCmsBackend.DbContexts;
 
-namespace BaseBackend.Repositories
+namespace NgCmsBackend.Repositories
 {
     public class TblRoleRepository : GenericRepository<BaseDbContext, tblRole>
     {

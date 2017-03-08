@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace BaseApi.Filters
+namespace NgCmsApi.Filters
 {
     // Validate models posted to the API before entering endpoint
     public class ValidateModelAttribute : ActionFilterAttribute

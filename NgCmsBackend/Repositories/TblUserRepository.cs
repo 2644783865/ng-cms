@@ -4,11 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BaseBackend.DbContexts;
-using BaseBackend.Interfaces;
-using BaseBackend.Services;
+using NgCmsBackend.DbContexts;
+using NgCmsBackend.Interfaces;
+using NgCmsBackend.Services;
 
-namespace BaseBackend.Repositories
+namespace NgCmsBackend.Repositories
 {
     public class TblUserRepository : GenericRepository<BaseDbContext, tblUser>
     {

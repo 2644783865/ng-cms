@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BaseBackend
+namespace NgCmsBackend
 {
     using System;
     using System.Collections.Generic;

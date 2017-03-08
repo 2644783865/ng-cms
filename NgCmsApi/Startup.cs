@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(BaseApi.Startup))]
+[assembly: OwinStartup(typeof(NgCmsApi.Startup))]
 
-namespace BaseApi
+namespace NgCmsApi
 {
     public partial class Startup
     {

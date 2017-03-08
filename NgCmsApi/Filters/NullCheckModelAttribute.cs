@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace BaseApi.Filters
+namespace NgCmsApi.Filters
 {
     // Validate parameters posted to endponits using this filter to check if they are null
     [AttributeUsage(AttributeTargets.Method, Inherited = true)]
