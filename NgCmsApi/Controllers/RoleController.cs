@@ -42,11 +42,11 @@ namespace NgCmsApi.Controllers
             return ClaimsPrincipal.Current.IsInRole(role.Name);
         }
 
-        [Route("IsMember")]
+        [Route("IsEditor")]
         [HttpGet]
-        public async Task<bool> IsMember()
+        public async Task<bool> IsEditor()
         {
-            var role = await _roleService.GetRoleById((int)RoleEnum.Member);
+            var role = await _roleService.GetRoleById((int)RoleEnum.Editor);
 
             return ClaimsPrincipal.Current.IsInRole(role.Name);
         }
