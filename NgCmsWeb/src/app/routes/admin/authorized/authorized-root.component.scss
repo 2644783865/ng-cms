@@ -1,0 +1,18 @@
+@import "./../../../../assets/styles/admin/variables";
+@import "./../../../../assets/styles/admin/mixins";
+
+a:hover{
+    cursor: pointer;
+}
+
+.navbar {
+  background: $nav-background-color;
+  .navbar-brand {
+    color: $nav-brand-color;
+  }
+  .nav-link {
+    color: $nav-link-color;
+  }
+}
+
+

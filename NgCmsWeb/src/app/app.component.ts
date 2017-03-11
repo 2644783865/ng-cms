@@ -9,16 +9,7 @@ import { AuthService } from './services/auth-service/auth.service';
 })
 export class AppComponent {
   title: string;
-
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router) {
     this.title = 'Ng Cms';
-  }
-
-  loggedIn() {
-    return this.authService.isLoggedIn();
-  }
-
-  logout() {
-    return this.authService.logout();
   }
 }

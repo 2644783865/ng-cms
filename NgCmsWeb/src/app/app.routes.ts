@@ -1,17 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './routes/login/login.component';
-import { RegisterComponent } from './routes/register/register.component';
-import { MemberComponent } from './routes/member/member.component';
-import { AdminComponent } from './routes/admin/admin.component';
-import { CanActivateAdmin } from './guards/admin.guard';
-import { CanActivateMember } from './guards/member.guard';
+import { AdminRootModule } from './routes/admin/admin-root.module';
+import { HomeRootModule } from './routes/home/home-root.module';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'member', canActivate: [CanActivateMember], component: MemberComponent },
-    { path: 'admin', canActivate: [CanActivateAdmin], component: AdminComponent },
-    { path: '', redirectTo: '/login', pathMatch: 'full' }
+    { path: '', loadChildren: 'app/routes/home/home-root.module#HomeRootModule' },
+    { path: 'admin', loadChildren: 'app/routes/admin/admin-root.module#AdminRootModule' }
 ];
 
 export const routing = RouterModule.forRoot(routes);

@@ -4,6 +4,7 @@ import { Headers } from '@angular/http';
 import { Token } from './../../models/token.model';
 import { Register } from './../../models/register.model';
 import { InterceptorService } from './../interceptor-service/interceptor.service';
+import { CanActivateAdmin } from './../../guards/admin.guard';
 
 @Injectable()
 export class AuthService {
@@ -38,7 +39,7 @@ export class AuthService {
             `grant_type=password&username=${userName}&password=${password}`, { headers: headers })
             .subscribe(res => {
                 this.setToken(res);
-                this.router.navigate(['member']);
+                this.router.navigate(['admin/main']);
             });
     }
 
@@ -53,7 +54,7 @@ export class AuthService {
 
     public logout() {
         localStorage.removeItem('token');
-        this.router.navigate(['login']);
+        this.router.navigate(['/admin/login']);
     }
 
     public isLoggedIn() {

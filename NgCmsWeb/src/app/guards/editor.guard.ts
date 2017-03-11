@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 
-export class CanActivateMember implements CanActivate {
+export class CanActivateEditor implements CanActivate {
     private _baseUrl: string;
     constructor(private interceptorService: InterceptorService,
     private authService: AuthService, private router: Router) {
@@ -16,7 +16,7 @@ export class CanActivateMember implements CanActivate {
     }
 
     canActivate() {
-        return this.interceptorService.get(this._baseUrl + 'IsMember').map(res => {
+        return this.interceptorService.get(this._baseUrl + 'IsEditor').map(res => {
             if (res) {
                 return true;
             } else {
@@ -29,7 +29,7 @@ export class CanActivateMember implements CanActivate {
     }
 
     checkActivate() {
-        return this.interceptorService.get(this._baseUrl + 'IsMember').map(res => {
+        return this.interceptorService.get(this._baseUrl + 'IsEditor').map(res => {
             return res;
         }).catch( error => {
             this.authService.logout();

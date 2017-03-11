@@ -1,9 +1,15 @@
-body {
-  font-size: 1.5em;
-  line-height: 1.6;
-  font-weight: 400;
-  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #222;
-  margin: 0;
-  background: #f1f1f1;
+@import "./admin/variables";
+
+// wrapper for home-content
+.main-container {
+    padding-top: 15px;
+    height: 100vh;
+}
+
+// admin-styles
+.admin {
+  .main-container{
+    background: $main-background-color;
+    color: $main-font-color;
+  }
 }
