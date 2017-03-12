@@ -9,6 +9,7 @@ import { InterceptorService } from './services/interceptor-service/interceptor.s
 import { AuthService } from './services/auth-service/auth.service';
 import { CanActivateAdmin } from './guards/admin.guard';
 import { CanActivateEditor } from './guards/editor.guard';
+import { ContentService } from './services/content-service/content.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CanActivateEditor } from './guards/editor.guard';
     InterceptorService,
     AuthService,
     CanActivateAdmin,
-    CanActivateEditor
+    CanActivateEditor,
+    ContentService
   ],
   bootstrap: [AppComponent]
 })
