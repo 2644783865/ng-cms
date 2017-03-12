@@ -1,6 +1,6 @@
 @import "./admin/variables";
 
-// wrapper for home-content
+// wrapper for content
 .main-container {
     padding-top: 15px;
     height: 100vh;
@@ -11,5 +11,8 @@
   .main-container{
     background: $main-background-color;
     color: $main-font-color;
+    .edit-link {
+      color: $main-font-color;
+    }
   }
 }
