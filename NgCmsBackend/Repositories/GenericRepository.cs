@@ -26,7 +26,10 @@ namespace NgCmsBackend.Repositories
             DbContext = dbContext;
         }
 
-        public IEnumerable<T> List => DbContext.Set<T>().ToList();
+        public async Task<IList<T>> List()
+        {
+            return await DbContext.Set<T>().ToListAsync();
+        }
 
         public virtual T SetCreatedDate(T entity)
         {
@@ -48,10 +51,21 @@ namespace NgCmsBackend.Repositories
             return entity;
         }
 
+        public virtual T SetGuid(T entity)
+        {
+            var type = entity.GetType();
+            var prop = type.GetProperty("Guid");
+
+            prop?.SetValue(entity, Guid.NewGuid(), null);
+
+            return entity;
+        }
+
         public virtual async Task<T> Insert(T entity)
         {
             SetCreatedDate(entity);
             SetModifiedDate(entity);
+            SetGuid(entity);
 
             DbContext.Set<T>().Add(entity);
             await SaveAsync();
