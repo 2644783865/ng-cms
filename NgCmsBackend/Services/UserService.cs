@@ -108,6 +108,10 @@ namespace NgCmsBackend.Services
         {
             await Task.Run(() => UserRepo.Update(user));
         }
-    }
 
+        public async Task<IList<tblUser>> ListUsers()
+        {
+            return await Task.Run(() => UserRepo.List());
+        }
+    }
 }
