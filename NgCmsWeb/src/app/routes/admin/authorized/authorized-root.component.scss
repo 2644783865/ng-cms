@@ -5,14 +5,19 @@ a:hover{
     cursor: pointer;
 }
 
-.navbar {
-  background: $nav-background-color;
-  .navbar-brand {
-    color: $nav-brand-color;
+.navbar-container {
+    background: $nav-background-color;
+    .container {
+      padding: 0;
+      .navbar {
+        background: $nav-background-color;
+        .navbar-brand {
+          color: $nav-brand-color;
+        }
+        .nav-link {
+          color: $nav-link-color;
+        }
+      }    
+    }
   }
-  .nav-link {
-    color: $nav-link-color;
-  }
-}
-
 
