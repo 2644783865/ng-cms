@@ -10,7 +10,7 @@ namespace NgCmsBackend.Interfaces
 {
     public interface IRepository<T> where T: class
     {
-        IEnumerable<T> List { get; }
+        Task<IList<T>> List();
         Task<T> Insert(T entity);
         Task<T> Delete(T entity);
         Task<T> Update(T entity);
