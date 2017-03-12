@@ -12,12 +12,13 @@ namespace NgCmsBackend
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class tblContent
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int ContentId { get; set; }
+        public string Name { get; set; }
+        public string Content { get; set; }
+        public System.Guid Guid { get; set; }
+        public System.DateTime Created { get; set; }
+        public System.DateTime Modified { get; set; }
     }
 }

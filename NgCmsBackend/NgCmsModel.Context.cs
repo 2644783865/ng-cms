@@ -13,10 +13,10 @@ namespace NgCmsBackend
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BaseEntities : DbContext
+    public partial class NgCmsEntities : DbContext
     {
-        public BaseEntities()
-            : base("name=BaseEntities")
+        public NgCmsEntities()
+            : base("name=NgCmsEntities")
         {
         }
     
@@ -25,8 +25,8 @@ namespace NgCmsBackend
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tblRole> tblRole { get; set; }
         public virtual DbSet<tblUser> tblUser { get; set; }
+        public virtual DbSet<tblContent> tblContent { get; set; }
     }
 }

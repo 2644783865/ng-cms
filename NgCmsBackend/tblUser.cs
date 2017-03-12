@@ -25,6 +25,7 @@ namespace NgCmsBackend
         public string Password { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime Modified { get; set; }
+        public System.Guid Guid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblRole> tblRole { get; set; }
