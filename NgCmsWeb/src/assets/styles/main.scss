@@ -6,6 +6,16 @@
     height: 100vh;
 }
 
+// admin icon
+#admin-icon {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  color: $main-font-color;
+}
+
 // admin-styles
 .admin {
   .main-container{
@@ -14,5 +24,12 @@
     .edit-link {
       color: $main-font-color;
     }
+  }
+  hr{
+    border-top: 1px solid $main-font-color;
+  }
+  .btn:focus, .btn:hover {
+    text-decoration: none;
+    cursor: pointer;
   }
 }
