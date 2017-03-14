@@ -20,6 +20,7 @@ using NgCmsBackend.DbContexts;
 using NgCmsBackend.Enums;
 using NgCmsBackend.Repositories;
 using NgCmsBackend.Services;
+using System.Linq;
 
 namespace NgCmsApi.Controllers
 {
@@ -27,17 +28,19 @@ namespace NgCmsApi.Controllers
     [RoutePrefix("api/Content")]
     public class ContentController : ApiController
     {
-        private readonly ContentService _contentService = new ContentService();
+        private readonly ContentService contentService = new ContentService();
+        private readonly PageService pageService = new PageService();
 
         public ContentController()
         {
         }
 
+        [AllowAnonymous]
         [Route("GetByName/{name}")]
         [HttpGet]
         public async Task<ContentModel> GetByName(string name)
         {
-            var content = await _contentService.GetContentByName(name);
+            var content = await contentService.GetContentByName(name);
 
             if (content == null)
             {
@@ -52,6 +55,45 @@ namespace NgCmsApi.Controllers
             };
         }
 
+        [AllowAnonymous]
+        [Route("GetByPage/{guid}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetByPage(Guid guid)
+        {
+            var contentList = await contentService.GetContentByPageGuid(guid);
+
+            return Ok(contentList.Select(c => new ContentModel()
+            {
+                Guid = c.Guid,
+                Name = c.Name,
+                Content = c.Content
+            }).ToList());
+        }
+
+        [AllowAnonymous]
+        [Route("GetByPaths")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetByPaths(string[] model)
+        {
+            var contentList = new List<tblContent>();
+            tblPage page;
+
+            foreach (var path in model)
+            {
+                page = await pageService.GetPageByPath(path);
+
+                contentList.Concat(await contentService.GetContentByPageGuid(page.Guid));
+            }
+
+            return Ok(
+                contentList.Select(c => new ContentModel()
+                {
+                    Guid = c.Guid,
+                    Name = c.Name,
+                    Content = c.Content
+                }).ToList());
+        }
+
         [Route("Create")]
         [HttpPost]
         public async Task<IHttpActionResult> CreateContent(ContentCreateModel model)
@@ -62,15 +104,47 @@ namespace NgCmsApi.Controllers
                 Content = model.Content
             };
 
-            var foundContent = await _contentService.GetContentByName(model.Name);
+            var foundPage = await pageService.GetPageByPath(model.Path);
 
-            if (foundContent != null) {
+            if (foundPage != null)
+            {
+                content.PageId = foundPage.PageId;
+            }
+            else
+            {
+                tblPage newPage = new tblPage()
+                {
+                    Path = model.Path
+                };
+
+                await pageService.CreatePage(newPage);
+
+                content.PageId = newPage.PageId;
+            }
+
+            var foundContent = await contentService.GetContentByName(model.Name);
+
+            if (foundContent != null)
+            {
                 return BadRequest("Content already exists");
             }
 
-            await _contentService.CreateContent(content);   
+            await contentService.CreateContent(content);
 
             return Ok(content.Guid);
+        }
+
+        [Route("Update")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateContent(ContentUpdateModel model)
+        {
+            var content = await contentService.GetContentByGuid(model.Guid);
+
+            content.Content = model.Content;
+
+            await contentService.UpdateContent(content);
+
+            return Ok();
         }
 
     }

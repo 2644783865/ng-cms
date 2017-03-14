@@ -5,16 +5,17 @@ using System.Collections.Generic;
 
 namespace NgCmsApi.Models
 {
-    public class ContentCreateModel
+    public class ContentUpdateModel
     {
+        [Required]
+        [JsonProperty("guid")]
+        public Guid Guid { get; set; }
+
         [Required]
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("content")]
         public string Content { get; set; }
-
-        [JsonProperty("path")]
-        public string Path { get; set; }
     }
 }
