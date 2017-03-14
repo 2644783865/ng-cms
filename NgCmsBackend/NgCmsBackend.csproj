@@ -7,8 +7,8 @@
     <ProjectGuid>{7235A8AC-9CAD-4463-88F4-BA0B1B4E760D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BaseBackend</RootNamespace>
-    <AssemblyName>BaseBackend</AssemblyName>
+    <RootNamespace>NgCmsBackend</RootNamespace>
+    <AssemblyName>NgCmsBackend</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -78,14 +78,19 @@
       <DependentUpon>NgCmsModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\TblPageRepository.cs" />
     <Compile Include="Repositories\TblContentRepository.cs" />
     <Compile Include="Repositories\TblRoleRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\TblUserRepository.cs" />
+    <Compile Include="Services\PageService.cs" />
     <Compile Include="Services\ContentService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="tblContent.cs">
+      <DependentUpon>NgCmsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPage.cs">
       <DependentUpon>NgCmsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblRole.cs">
