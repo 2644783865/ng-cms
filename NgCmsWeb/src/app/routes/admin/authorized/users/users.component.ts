@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserService } from './../../../../services/user-service/user.service';
 
 @Component({
@@ -6,11 +6,9 @@ import { UserService } from './../../../../services/user-service/user.service';
     styleUrls: ['users.component.scss'],
 })
 
-export class Users {
+export class Users implements OnInit {
     users: any = [];
-    test: any;
     constructor(private userService: UserService) {
-        this.test = '343434';
     }
 
     ngOnInit() {
