@@ -12,16 +12,21 @@ namespace NgCmsBackend
     using System;
     using System.Collections.Generic;
     
-    public partial class tblContent
+    public partial class tblPage
     {
-        public int ContentId { get; set; }
-        public string Name { get; set; }
-        public string Content { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblPage()
+        {
+            this.tblContent = new HashSet<tblContent>();
+        }
+    
+        public int PageId { get; set; }
+        public string Path { get; set; }
         public System.Guid Guid { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime Modified { get; set; }
-        public int PageId { get; set; }
     
-        public virtual tblPage tblPage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblContent> tblContent { get; set; }
     }
 }

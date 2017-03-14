@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="NgCmsBackend.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="NgCmsBackend.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblContent">
           <Key>
             <PropertyRef Name="ContentId" />
@@ -12,6 +12,17 @@
           <Property Name="ContentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Content" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Modified" Type="datetime" Nullable="false" />
+          <Property Name="PageId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPage">
+          <Key>
+            <PropertyRef Name="PageId" />
+          </Key>
+          <Property Name="PageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Modified" Type="datetime" Nullable="false" />
@@ -45,6 +56,18 @@
           <Property Name="RoleId_Fk" Type="int" Nullable="false" />
           <Property Name="UserId_Fk" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_tblContent_tblPage">
+          <End Role="tblPage" Type="Self.tblPage" Multiplicity="1" />
+          <End Role="tblContent" Type="Self.tblContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPage">
+              <PropertyRef Name="PageId" />
+            </Principal>
+            <Dependent Role="tblContent">
+              <PropertyRef Name="PageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblUserRole_tblRole">
           <End Role="tblRole" Type="Self.tblRole" Multiplicity="1" />
           <End Role="tblUserRole" Type="Self.tblUserRole" Multiplicity="*" />
@@ -71,9 +94,14 @@
         </Association>
         <EntityContainer Name="NgCmsBackendStoreContainer">
           <EntitySet Name="tblContent" EntityType="Self.tblContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPage" EntityType="Self.tblPage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserRole" EntityType="Self.tblUserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblContent_tblPage" Association="Self.FK_tblContent_tblPage">
+            <End Role="tblPage" EntitySet="tblPage" />
+            <End Role="tblContent" EntitySet="tblContent" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblUserRole_tblRole" Association="Self.FK_tblUserRole_tblRole">
             <End Role="tblRole" EntitySet="tblRole" />
             <End Role="tblUserRole" EntitySet="tblUserRole" />
@@ -83,10 +111,35 @@
             <End Role="tblUserRole" EntitySet="tblUserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NgCmsBackend" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblContent">
+          <Key>
+            <PropertyRef Name="ContentId" />
+          </Key>
+          <Property Name="ContentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblPage" Relationship="Self.FK_tblContent_tblPage" FromRole="tblContent" ToRole="tblPage" />
+        </EntityType>
+        <EntityType Name="tblPage">
+          <Key>
+            <PropertyRef Name="PageId" />
+          </Key>
+          <Property Name="PageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblContent" Relationship="Self.FK_tblContent_tblPage" FromRole="tblPage" ToRole="tblContent" />
+        </EntityType>
         <EntityType Name="tblRole">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -110,36 +163,66 @@
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <NavigationProperty Name="tblRole" Relationship="Self.tblUserRole" FromRole="tblUser" ToRole="tblRole" />
         </EntityType>
+        <Association Name="FK_tblContent_tblPage">
+          <End Role="tblPage" Type="Self.tblPage" Multiplicity="1" />
+          <End Role="tblContent" Type="Self.tblContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPage">
+              <PropertyRef Name="PageId" />
+            </Principal>
+            <Dependent Role="tblContent">
+              <PropertyRef Name="PageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="tblUserRole">
           <End Role="tblRole" Type="Self.tblRole" Multiplicity="*" />
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="NgCmsEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblContent" EntityType="Self.tblContent" />
+          <EntitySet Name="tblPage" EntityType="Self.tblPage" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblContent_tblPage" Association="Self.FK_tblContent_tblPage">
+            <End Role="tblPage" EntitySet="tblPage" />
+            <End Role="tblContent" EntitySet="tblContent" />
+          </AssociationSet>
           <AssociationSet Name="tblUserRole" Association="Self.tblUserRole">
             <End Role="tblRole" EntitySet="tblRole" />
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
-          <EntitySet Name="tblContent" EntityType="NgCmsBackend.tblContent" />
         </EntityContainer>
-        <EntityType Name="tblContent">
-          <Key>
-            <PropertyRef Name="ContentId" />
-          </Key>
-          <Property Name="ContentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="NgCmsBackendStoreContainer" CdmEntityContainer="NgCmsEntities">
+        <EntityContainerMapping StorageEntityContainer="NgCmsBackendStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="tblContent">
+            <EntityTypeMapping TypeName="NgCmsBackend.tblContent">
+              <MappingFragment StoreEntitySet="tblContent">
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="PageId" ColumnName="PageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPage">
+            <EntityTypeMapping TypeName="NgCmsBackend.tblPage">
+              <MappingFragment StoreEntitySet="tblPage">
+                <ScalarProperty Name="PageId" ColumnName="PageId" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblRole">
             <EntityTypeMapping TypeName="NgCmsBackend.tblRole">
               <MappingFragment StoreEntitySet="tblRole">
@@ -171,18 +254,6 @@
               <ScalarProperty Name="UserId" ColumnName="UserId_Fk" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="tblContent">
-            <EntityTypeMapping TypeName="NgCmsBackend.tblContent">
-              <MappingFragment StoreEntitySet="tblContent">
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

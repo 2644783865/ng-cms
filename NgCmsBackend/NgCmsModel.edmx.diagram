@@ -4,11 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6f47d456549b4f5c8a7459f8d5a580f0" Name="Diagram1">
+      <Diagram DiagramId="9116a2378149420e833b61a3ae88ed99" Name="Diagram1">
+        <EntityTypeShape EntityType="NgCmsBackend.tblContent" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NgCmsBackend.tblPage" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="NgCmsBackend.tblRole" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="NgCmsBackend.tblUser" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="NgCmsBackend.FK_tblContent_tblPage" ManuallyRouted="false" />
         <AssociationConnector Association="NgCmsBackend.tblUserRole" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="NgCmsBackend.tblContent" Width="1.5" PointX="3.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

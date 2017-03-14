@@ -25,8 +25,9 @@ namespace NgCmsBackend
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tblContent> tblContent { get; set; }
+        public virtual DbSet<tblPage> tblPage { get; set; }
         public virtual DbSet<tblRole> tblRole { get; set; }
         public virtual DbSet<tblUser> tblUser { get; set; }
-        public virtual DbSet<tblContent> tblContent { get; set; }
     }
 }
