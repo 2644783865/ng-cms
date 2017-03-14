@@ -7,9 +7,13 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routes';
 import { InterceptorService } from './services/interceptor-service/interceptor.service';
 import { AuthService } from './services/auth-service/auth.service';
+import { GrowlService } from './services/growl-service/growl.service';
+import { EmitterService } from './services/emitter-service/emitter.service';
 import { CanActivateAdmin } from './guards/admin.guard';
 import { CanActivateEditor } from './guards/editor.guard';
 import { ContentService } from './services/content-service/content.service';
+import { PageService } from './services/page-service/page.service';
+import * as $ from 'jquery';
 
 @NgModule({
   declarations: [
@@ -25,9 +29,12 @@ import { ContentService } from './services/content-service/content.service';
   providers: [
     InterceptorService,
     AuthService,
+    GrowlService,
+    EmitterService,
     CanActivateAdmin,
     CanActivateEditor,
-    ContentService
+    ContentService,
+    PageService
   ],
   bootstrap: [AppComponent]
 })
