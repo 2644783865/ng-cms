@@ -11,7 +11,7 @@ export const routes: Routes = [
             { path: 'main', component: Main },
             { path: '', redirectTo: 'main', pathMatch: 'full' },
             { path: 'users', component: Users },
-            { path: 'edit-content/:nc-name', component: EditContent }
+            { path: 'edit-content/:guid', component: EditContent }
         ]
     },
 ];
