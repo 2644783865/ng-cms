@@ -38,7 +38,7 @@ namespace NgCmsApi.Controllers
         [HttpGet]
         public async Task<List<UserTableModel>> GetUserList()
         {
-            var users = await _userService.ListUsers();
+            var users = await _userService.GetUsers();
             return users.Select(x => new UserTableModel()
             {
                 Guid = x.Guid,
