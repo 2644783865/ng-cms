@@ -1,13 +1,5 @@
 <div class="row">
     <div class="form-group col-md-4">
-        <label for="gb" [ncEditable]="test">Search users:</label>
-        <input #gb type="text" pInputText class="form-control" placeholder="Enter text">
+        <div *ngFor="let user of users">{{user.userName}}</div>
     </div>
 </div>
-<div [ncEditable]="'testing'">waddap</div>
-<div [ncEditable]="'testing2'">waddap</div>
-<div [ncEditable]="'testing3'">waddap</div>
-<p-dataTable [value]="users" [globalFilter]="gb" styleClass="table">
-    <p-column field="userName" header="Username" [sortable]="true"></p-column>
-    <p-column field="role" header="Role" [sortable]="true"></p-column>
-</p-dataTable>
