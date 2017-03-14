@@ -9,9 +9,9 @@ import { CanActivateAdmin } from './../../guards/admin.guard';
 @Injectable()
 export class AuthService {
     private token: Token;
-    private _baseUrl: string;
+    private baseUrl: string;
     constructor(private interceptor: InterceptorService, private router: Router) {
-        this._baseUrl = 'api/Account/';
+        this.baseUrl = 'api/Account/';
     }
 
     // Saves the token in localStorage
@@ -46,7 +46,7 @@ export class AuthService {
     public register(email: string, password: string, confirmPassword: string) {
         let model = new Register().deserialize({ Email: email, Password: password, ConfirmPassword: confirmPassword });
 
-        return this.interceptor.post(this._baseUrl + 'Register', JSON.stringify(model))
+        return this.interceptor.post(this.baseUrl + 'Register', JSON.stringify(model))
             .subscribe(res => {
                 this.login(email, password);
             });

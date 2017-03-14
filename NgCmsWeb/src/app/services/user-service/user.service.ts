@@ -9,13 +9,13 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class UserService {
 
-    private _baseUrl: string;
+    private baseUrl: string;
     constructor(private interceptor: InterceptorService, private router: Router) {
-        this._baseUrl = 'api/User/';
+        this.baseUrl = 'api/User/';
     }
 
     public listUsers() {
-        return this.interceptor.get(this._baseUrl + 'List').map(res => {
+        return this.interceptor.get(this.baseUrl + 'List').map(res => {
             return res;
         }).catch( error => {
             return Observable.of(error);
