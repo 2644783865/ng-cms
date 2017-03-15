@@ -20,13 +20,15 @@ export class Content {
     }
 
     nodeSelect(event) {
-        this.contentService.getContentByGuid(event.node.data.guid).subscribe(res => {
-            if (this.selectedContent !== undefined) {
-                EmitterService.emitter('selected_content_changed').emit(res);
-            } else {
-                this.selectedContent = res;
-            }
-        });
+        if (event.node.data.guid !== null) {
+            this.contentService.getContentByGuid(event.node.data.guid).subscribe(res => {
+                if (this.selectedContent !== undefined) {
+                    EmitterService.emitter('selected_content_changed').emit(res);
+                } else {
+                    this.selectedContent = res;
+                }
+            });
+        }
     }
 
     nodeUnselect(event) {

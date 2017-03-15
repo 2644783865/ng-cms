@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { AuthService } from './../../services/auth-service/auth.service';
 
 @Component({
@@ -12,10 +12,10 @@ export class LoginFormComponent {
     loginForm: FormGroup;
 
 
-    constructor(private authService: AuthService) {
-        this.loginForm = new FormGroup({
-            userName: new FormControl(''),
-            password: new FormControl('')
+    constructor(private fb: FormBuilder, private authService: AuthService) {
+        this.loginForm = this.fb.group({
+            userName: [''],
+            password: ['']
         });
     }
 

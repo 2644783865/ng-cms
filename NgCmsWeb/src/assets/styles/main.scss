@@ -34,36 +34,47 @@
   }
 }
 
-// ng-prime styles, testing
+// ng-prime styles
+.ui-growl {
+    .ui-growl-message-success {
+      background: $growl-success-color;
+      color: $growl-font-color;
+    }
+}
 .ui-treetable {
+  tbody {
+    background: $secondary-background-color;
+  }
   thead th {
-    background: $main-background-color !important;
-    color: $main-font-color !important;
+    background: $main-background-color;
+    color: $main-font-color;
+    border-width: 0;
+    border-style: none; 
+    text-align: left;
+    padding: 0 0 15px 0;
   }
 }
-
-.ui-widget {}
+.ui-treetable td.ui-treetable-child-table-container {
+  padding: 15px;
+}
 .ui-treetable-tablewrapper {
   .ui-widget-content{
-    background: $main-background-color !important;
+    background: $main-background-color;
   }
   .ui-state-highlight{
-    background: $main-background-color !important;
+    background: $row-selected-background-color;
   } 
 }
-
-.ui-state-default{}
-.ui-unselectable-text{}
-.ui-column-title{}
-.ui-treetable-row {}
-
-.ui-treetable-row-selectable{}
-.ui-treetable-child-table-container{}
 .ui-treetable{
  .ui-treetable-row{
-   .ui-treetable-row-selectable:not(.ui-state-highlight):hover{
-     background: $main-font-color;
-     color: $main-background-color;
+   .ui-treetable-row-selectable:hover{
+     color: $row-selected-font-color;
+   }
+   .ui-state-highlight{
+     color: $row-selected-font-color;
    }
  }
+}
+.ui-treetable-toggler, .ui-treetable-toggler:hover, .ui-treetable-toggler:focus{
+  color: $main-font-color;
 }

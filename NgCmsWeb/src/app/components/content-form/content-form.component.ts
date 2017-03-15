@@ -1,7 +1,7 @@
 import { EmitterService } from '../../services/emitter-service/emitter.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ContentService } from './../../services/content-service/content.service';
 import { GrowlService } from './../../services/growl-service/growl.service';
 import { ContentModel } from './../../models/content.model';
@@ -19,9 +19,9 @@ export class ContentFormComponent implements OnInit {
     editedContent: ContentUpdateModel;
     contentForm: FormGroup;
 
-    constructor(private contentService: ContentService, private router: Router, private growlService: GrowlService) {
-        this.contentForm = new FormGroup({
-            content: new FormControl('')
+    constructor(private fb: FormBuilder, private contentService: ContentService, private router: Router, private growlService: GrowlService) {
+        this.contentForm = this.fb.group({
+            content: ['']
         });
     }
 
@@ -31,12 +31,13 @@ export class ContentFormComponent implements OnInit {
 
         EmitterService.emitter('selected_content_changed').subscribe(res => {
             this.initForm(res);
+            this.content = res;
         });
     }
 
     initForm(model) {
-        this.contentForm = new FormGroup({
-            content: new FormControl(model.content)
+        this.contentForm = this.fb.group({
+            content: [model.content]
         });
     }
 
