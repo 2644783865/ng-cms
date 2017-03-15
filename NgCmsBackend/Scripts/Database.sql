@@ -1,6 +1,6 @@
 ﻿USE [NgCms]
 GO
-/****** Object:  Table [dbo].[tblContent]    Script Date: 2017-03-14 23:49:34 ******/
+/****** Object:  Table [dbo].[tblContent]    Script Date: 2017-03-15 16:09:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20,7 +20,7 @@ CREATE TABLE [dbo].[tblContent](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tblPage]    Script Date: 2017-03-14 23:49:35 ******/
+/****** Object:  Table [dbo].[tblPage]    Script Date: 2017-03-15 16:09:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -38,7 +38,7 @@ CREATE TABLE [dbo].[tblPage](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tblRole]    Script Date: 2017-03-14 23:49:35 ******/
+/****** Object:  Table [dbo].[tblRole]    Script Date: 2017-03-15 16:09:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -56,7 +56,7 @@ CREATE TABLE [dbo].[tblRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tblUser]    Script Date: 2017-03-14 23:49:35 ******/
+/****** Object:  Table [dbo].[tblUser]    Script Date: 2017-03-15 16:09:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -67,7 +67,7 @@ CREATE TABLE [dbo].[tblUser](
 	[Password] [nvarchar](500) NOT NULL,
 	[Created] [datetime] NOT NULL,
 	[Modified] [datetime] NOT NULL,
-	[Guid] [uniqueidentifier] NOT NULL,
+	[Guid] [uniqueidentifier] NOT NULL CONSTRAINT [DF_tblUser_Guid]  DEFAULT (newid()),
  CONSTRAINT [PK_tblUser] PRIMARY KEY CLUSTERED 
 (
 	[UserId] ASC
@@ -75,7 +75,7 @@ CREATE TABLE [dbo].[tblUser](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tblUserRole]    Script Date: 2017-03-14 23:49:35 ******/
+/****** Object:  Table [dbo].[tblUserRole]    Script Date: 2017-03-15 16:09:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,6 +93,10 @@ CREATE TABLE [dbo].[tblUserRole](
 GO
 ALTER TABLE [dbo].[tblContent] ADD  CONSTRAINT [DF_tblElement_Guid]  DEFAULT (newid()) FOR [Guid]
 GO
+ALTER TABLE [dbo].[tblContent] ADD  CONSTRAINT [DF_tblContent_Created]  DEFAULT (getdate()) FOR [Created]
+GO
+ALTER TABLE [dbo].[tblContent] ADD  CONSTRAINT [DF_tblContent_Modified]  DEFAULT (getdate()) FOR [Modified]
+GO
 ALTER TABLE [dbo].[tblPage] ADD  CONSTRAINT [DF_tblPage_Guid]  DEFAULT (newid()) FOR [Guid]
 GO
 ALTER TABLE [dbo].[tblPage] ADD  CONSTRAINT [DF_tblPage_Created]  DEFAULT (getdate()) FOR [Created]
@@ -101,7 +105,9 @@ ALTER TABLE [dbo].[tblPage] ADD  CONSTRAINT [DF_tblPage_Modified]  DEFAULT (getd
 GO
 ALTER TABLE [dbo].[tblRole] ADD  CONSTRAINT [DF_tblRole_Guid]  DEFAULT (newid()) FOR [Guid]
 GO
-ALTER TABLE [dbo].[tblUser] ADD  CONSTRAINT [DF_tblUser_Guid]  DEFAULT (newid()) FOR [Guid]
+ALTER TABLE [dbo].[tblRole] ADD  CONSTRAINT [DF_tblRole_Created]  DEFAULT (getdate()) FOR [Created]
+GO
+ALTER TABLE [dbo].[tblRole] ADD  CONSTRAINT [DF_tblRole_Modified]  DEFAULT (getdate()) FOR [Modified]
 GO
 ALTER TABLE [dbo].[tblContent]  WITH CHECK ADD  CONSTRAINT [FK_tblContent_tblPage] FOREIGN KEY([PageId])
 REFERENCES [dbo].[tblPage] ([PageId])
