@@ -29,9 +29,40 @@ namespace NgCmsApi.Controllers
     public class PageController : ApiController
     {
         private readonly PageService pageService = new PageService();
+        private readonly ContentService contentService = new ContentService();
 
         public PageController()
         {
+        }
+
+        [Route("GetPagesWithContent")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetPagesWithContent()
+        {
+            var pageList = await pageService.GetPages();
+
+            return Ok(new PageContentTreeModel()
+            {
+                Data = pageList.Select(x => new PageTreeModel()
+                {
+                    Data = new ContentModel()
+                    {
+                        Guid = x.Guid,
+                        Name = x.Path
+                    },
+                    Children = x.tblContent.Select(y => new PageTreeModel()
+                    {
+                        Data = new ContentModel()
+                        {
+                            Guid = y.Guid,
+                            Name = y.Name,
+                            Content = y.Content
+                        },
+                        Children = new List<PageTreeModel>()
+                   }).ToList()
+                   
+               }).ToList()
+            });
         }
 
         [AllowAnonymous]

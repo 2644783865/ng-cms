@@ -30,6 +30,11 @@ namespace NgCmsBackend.Services
             return await ContentRepo.FindAsync(x => x.Name.Equals(name));
         }
 
+        public async Task<IList<tblContent>> GetContent()
+        {
+            return await ContentRepo.List();
+        }
+
         public async Task<tblContent> GetContentByGuid(Guid guid)
         {
             return await ContentRepo.FindAsync(x => x.Guid.Equals(guid));

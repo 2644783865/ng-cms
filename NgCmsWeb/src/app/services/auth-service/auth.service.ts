@@ -39,7 +39,7 @@ export class AuthService {
             `grant_type=password&username=${userName}&password=${password}`, { headers: headers })
             .subscribe(res => {
                 this.setToken(res);
-                this.router.navigate(['admin/main']);
+                this.router.navigate(['/admin/content']);
             });
     }
 

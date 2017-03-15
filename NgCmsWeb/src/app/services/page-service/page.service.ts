@@ -25,5 +25,12 @@ export class PageService {
     public createPage(model) {
         return this.interceptor.post(this.baseUrl + 'Create', JSON.stringify(model));
     }
-}
 
+    public getPagesWithContent() {
+        return this.interceptor.get(this.baseUrl + 'GetPagesWithContent').map(res => {
+            return res;
+        }).catch(error => {
+            return Observable.of(error);
+        });
+    }
+}

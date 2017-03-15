@@ -195,6 +195,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PageTreeModel.cs" />
+    <Compile Include="Models\PageContentTreeModel.cs" />
     <Compile Include="Models\PathModel.cs" />
     <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\PageCreateModel.cs" />

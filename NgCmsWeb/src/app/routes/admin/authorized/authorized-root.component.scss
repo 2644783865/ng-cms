@@ -7,12 +7,14 @@ a:hover{
 
 .navbar-container {
     background: $nav-background-color;
+    border-bottom: 1px solid $main-font-color;
     .container {
       padding: 0;
       .navbar {
         background: $nav-background-color;
         .navbar-brand {
           color: $nav-brand-color;
+          font-weight: 500;
         }
         .nav-link {
           color: $nav-link-color;
