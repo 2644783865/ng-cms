@@ -45,14 +45,16 @@ namespace NgCmsApi.Controllers
             {
                 Data = pageList.Select(x => new PageTreeModel()
                 {
-                    Data = new ContentModel()
+                    Data = new ContentTreeModel()
                     {
-                        Guid = x.Guid,
-                        Name = x.Path
+                        // Page as first node
+                        Name = x.Path,
+                        Guid = null,
+                        Content = null
                     },
                     Children = x.tblContent.Select(y => new PageTreeModel()
                     {
-                        Data = new ContentModel()
+                        Data = new ContentTreeModel()
                         {
                             Guid = y.Guid,
                             Name = y.Name,
