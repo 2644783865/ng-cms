@@ -9,7 +9,7 @@ namespace NgCmsApi.Models
     {
         [Required]
         [JsonProperty("data")]
-        public ContentTreeModel Data { get; set; }
+        public TreeListModel Data { get; set; }
 
         [Required]
         [JsonProperty("children")]

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NgCmsApi.Models
 {
-    public class ContentTreeModel
+    public class TreeListModel
     {
         [JsonProperty("guid")]
         public Guid? Guid { get; set; }
