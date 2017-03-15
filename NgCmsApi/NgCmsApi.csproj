@@ -195,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContentModel.cs" />
     <Compile Include="Models\PageTreeModel.cs" />
     <Compile Include="Models\PageContentTreeModel.cs" />
     <Compile Include="Models\PathModel.cs" />
@@ -203,7 +204,7 @@
     <Compile Include="Models\ContentUpdateModel.cs" />
     <Compile Include="Models\ContentCreateModel.cs" />
     <Compile Include="Models\RoleListModel.cs" />
-    <Compile Include="Models\ContentModel.cs" />
+    <Compile Include="Models\ContentTreeModel.cs" />
     <Compile Include="Models\UserTableModel.cs" />
     <Compile Include="Models\UserListModel.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
