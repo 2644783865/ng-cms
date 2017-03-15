@@ -204,7 +204,7 @@
     <Compile Include="Models\ContentUpdateModel.cs" />
     <Compile Include="Models\ContentCreateModel.cs" />
     <Compile Include="Models\RoleListModel.cs" />
-    <Compile Include="Models\ContentTreeModel.cs" />
+    <Compile Include="Models\TreeListModel.cs" />
     <Compile Include="Models\UserTableModel.cs" />
     <Compile Include="Models\UserListModel.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
