@@ -1,6 +1,6 @@
 import { Serializable } from './../interfaces/serializable.interface';
 
-export class Register implements Serializable<Register> {
+export class RegisterModel implements Serializable<RegisterModel> {
     // TODO: Change to camelcase
     Email: string;
     Password: string;

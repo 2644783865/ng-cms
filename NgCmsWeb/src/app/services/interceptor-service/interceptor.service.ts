@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, Headers } from '@angular/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class InterceptorService {
@@ -55,7 +57,13 @@ export class InterceptorService {
                 return res.json();
             }
             return res;
-        });
+        }).catch(error => { return this.throwError(error); });
+    }
+
+    private throwError(error: any) {
+        const obj = error.headers.has('Content-Type') ? error.json() : error;
+        const msg = obj.error_description || obj.Message || 'Server error';
+        return Observable.throw(msg);
     }
 
     private hasJsonHeader(headers) {

@@ -74,7 +74,12 @@ namespace NgCmsApi.Controllers
 
             if (page == null)
             {
-                return null;
+                page = new tblPage()
+                {
+                    Path = model.Path
+                };
+
+                await pageService.CreatePage(page);
             }
 
             return Ok(new PageModel()

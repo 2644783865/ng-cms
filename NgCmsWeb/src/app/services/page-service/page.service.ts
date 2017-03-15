@@ -4,14 +4,14 @@ import { Headers } from '@angular/http';
 import { InterceptorService } from './../interceptor-service/interceptor.service';
 import { EmitterService } from './../emitter-service/emitter.service';
 import { Observable } from 'rxjs/Observable';
-import { Page } from './../../models/page.model';
-import { PageCreate } from './../../models/page-create.model';
+import { PageModel } from './../../models/page.model';
+import { PageCreateModel } from './../../models/page-create.model';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class PageService {
-    public pageArr: Page[] = [];
+    public pageArr: PageModel[] = [];
     private baseUrl: string;
     constructor(private interceptor: InterceptorService, private router: Router) {
         this.baseUrl = 'api/Page/';

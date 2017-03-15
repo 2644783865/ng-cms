@@ -1,6 +1,6 @@
 import {Serializable} from './../interfaces/serializable.interface';
 
-export class Token implements Serializable<Token> {
+export class TokenModel implements Serializable<TokenModel> {
     accessToken: string;
     tokenType: string;
     expiresIn: Date;

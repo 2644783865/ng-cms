@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { Headers } from '@angular/http';
 import { InterceptorService } from './../interceptor-service/interceptor.service';
 import { Observable } from 'rxjs/Observable';
-import { Content } from './../../models/content.model';
+import { ContentModel } from './../../models/content.model';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ContentService {
-    public contentArr: Content[] = [];
+    public contentArr: ContentModel[] = [];
     public contentLoaded: boolean = false;
     private baseUrl: string;
     constructor(private interceptor: InterceptorService, private router: Router) {
@@ -27,6 +27,14 @@ export class ContentService {
 
     public getContent() {
         return this.interceptor.get(this.baseUrl).map(res => {
+            return res;
+        }).catch(error => {
+            return Observable.of(error);
+        });
+    }
+
+    public getContentByGuid(guid) {
+        return this.interceptor.get(this.baseUrl + 'GetByGuid/' + guid).map(res => {
             return res;
         }).catch(error => {
             return Observable.of(error);

@@ -112,12 +112,12 @@ namespace NgCmsApi.Controllers
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
-            await UserManager.AddToRoleAsync(user.UserId, "Member");
-
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
+
+            await UserManager.AddToRoleAsync(user.UserId, "Member");
 
             return Ok();
         }

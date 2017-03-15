@@ -56,6 +56,26 @@ namespace NgCmsApi.Controllers
         }
 
         [AllowAnonymous]
+        [Route("GetByGuid/{guid}")]
+        [HttpGet]
+        public async Task<ContentModel> GetByGuid(Guid guid)
+        {
+            var content = await contentService.GetContentByGuid(guid);
+
+            if (content == null)
+            {
+                return null;
+            }
+
+            return new ContentModel()
+            {
+                Guid = content.Guid,
+                Name = content.Name,
+                Content = content.Content
+            };
+        }
+
+        [AllowAnonymous]
         [Route("GetByPage/{guid}")]
         [HttpGet]
         public async Task<IHttpActionResult> GetByPage(Guid guid)

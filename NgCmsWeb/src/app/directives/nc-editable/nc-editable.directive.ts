@@ -1,38 +1,37 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { ContentService } from './../../services/content-service/content.service';
-import { ContentCreate } from './../../models/content-create.model';
-import { Content } from './../../models/content.model';
+import { ContentCreateModel } from './../../models/content-create.model';
+import { ContentModel } from './../../models/content.model';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth-service/auth.service';
 
 @Directive({ selector: '[ncEditable]' })
 
-export class NcEditableDirective {
+export class NcEditableDirective implements OnInit {
     @Input('ncEditable') ncName: string;
     editLink: string;
     contentId: string;
-    content: Content;
-    foundContent: Content;
-    constructor(private element: ElementRef, private contentService: ContentService, private router: Router, private authService: AuthService) {
-
+    content: ContentModel;
+    foundContent: ContentModel;
+    constructor(private element: ElementRef, private contentService: ContentService,
+        private router: Router, private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.foundContent = this.contentService.contentArr.find(c => c.name == this.ncName);
+        this.foundContent = this.contentService.contentArr.find(c => c.name === this.ncName);
         this.initContent();
     }
 
     initContent() {
         if (this.authService.isLoggedIn()) {
             if (this.foundContent === undefined) {
-                debugger;
-                const content = new ContentCreate().deserialize({
+                const content = new ContentCreateModel().deserialize({
                     name: this.ncName,
                     content: this.element.nativeElement.innerHTML,
                     path: this.router.url
                 });
                 this.contentService.createContent(content).subscribe(res => {
-                    this.content = new Content().deserialize(content);
+                    this.content = new ContentModel().deserialize(content);
                     this.content.guid = res;
                     this.appendLink();
                 });

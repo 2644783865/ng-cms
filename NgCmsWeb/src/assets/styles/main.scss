@@ -37,27 +37,33 @@
 // ng-prime styles, testing
 .ui-treetable {
   thead th {
-    background: yellow !important;
+    background: $main-background-color !important;
+    color: $main-font-color !important;
   }
 }
+
 .ui-widget {}
-.ui-treetable-tablewrapper {}
-.ui-widget-content{
-  background: $main-background-color !important;
+.ui-treetable-tablewrapper {
+  .ui-widget-content{
+    background: $main-background-color !important;
+  }
+  .ui-state-highlight{
+    background: $main-background-color !important;
+  } 
 }
+
 .ui-state-default{}
 .ui-unselectable-text{}
 .ui-column-title{}
 .ui-treetable-row {}
-.ui-state-highlight{
-  background: $main-background-color !important;
-} 
+
 .ui-treetable-row-selectable{}
 .ui-treetable-child-table-container{}
 .ui-treetable{
  .ui-treetable-row{
    .ui-treetable-row-selectable:not(.ui-state-highlight):hover{
-     background: blue !important;
+     background: $main-font-color;
+     color: $main-background-color;
    }
  }
 }

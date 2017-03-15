@@ -1,6 +1,6 @@
 import {Serializable} from './../interfaces/serializable.interface';
 
-export class Content implements Serializable<Content> {
+export class ContentModel implements Serializable<ContentModel> {
     guid: string;
     name: string;
     content: string;

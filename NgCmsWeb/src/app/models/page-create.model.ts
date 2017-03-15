@@ -1,6 +1,6 @@
 import {Serializable} from './../interfaces/serializable.interface';
 
-export class PageCreate implements Serializable<PageCreate> {
+export class PageCreateModel implements Serializable<PageCreateModel> {
     path: string;
 
     deserialize(input) {

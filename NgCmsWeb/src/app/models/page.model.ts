@@ -1,6 +1,6 @@
 import {Serializable} from './../interfaces/serializable.interface';
 
-export class Page implements Serializable<Page> {
+export class PageModel implements Serializable<PageModel> {
     guid: string;
     path: string;
 
