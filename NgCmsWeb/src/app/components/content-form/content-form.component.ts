@@ -26,7 +26,6 @@ export class ContentFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.editedContent = new ContentUpdateModel().deserialize(this.content);
         this.initForm(this.content);
 
         EmitterService.emitter('selected_content_changed').subscribe(res => {
@@ -42,6 +41,7 @@ export class ContentFormComponent implements OnInit {
     }
 
     save() {
+        this.editedContent = new ContentUpdateModel().deserialize(this.content);
         for (const property in this.contentForm.value) {
             if (this.editedContent.hasOwnProperty(property)) {
                 this.editedContent[property] = this.contentForm.value[property];
@@ -51,6 +51,7 @@ export class ContentFormComponent implements OnInit {
             this.contentService.contentArr[this.contentService.contentArr
                 .findIndex(c => c.guid === this.editedContent.guid)] = this.editedContent;
             this.growlService.messageArr.push({ severity: 'success', summary: 'Info Message', detail: 'Saved content' });
+            EmitterService.emitter('content_updated').emit(this.editedContent);
         });
     }
 }
