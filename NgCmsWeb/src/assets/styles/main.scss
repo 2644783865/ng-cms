@@ -3,7 +3,13 @@
 // wrapper for content
 .main-container {
     padding-top: 15px;
-    height: 100vh;
+    height: 95.9vh;
+}
+
+@media (min-width: 992px) {
+  .main-container {
+      height: 95.7vh;
+  }
 }
 
 // admin icon
