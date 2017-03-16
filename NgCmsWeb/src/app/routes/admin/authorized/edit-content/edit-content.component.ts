@@ -14,7 +14,7 @@ export class EditContent implements OnDestroy {
     referral: string;
     constructor(private route: ActivatedRoute, private contentService: ContentService, private growlService: GrowlService) {
         this.content = this.contentService.contentArr.find(c => c.guid === this.route.snapshot.params['guid']);
-        this.referral = this.route.snapshot.queryParams.returnUrl;
+        this.referral = this.route.snapshot.queryParams['returnUrl'];
     }
 
     ngOnDestroy() {
