@@ -4,7 +4,7 @@ import { ContentCreateModel } from './../../models/content-create.model';
 import { ContentModel } from './../../models/content.model';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth-service/auth.service';
-import { newGuid } from './../../helpers/guid-generator';
+import { newGuid } from './../../helpers/guid-helper';
 
 @Directive({ selector: '[ncEditable]' })
 
