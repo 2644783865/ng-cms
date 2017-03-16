@@ -4,13 +4,19 @@
 .main-container {
     padding-top: 15px;
     height: 100vh;
+    .edit-area {
+      border: 1px solid $main-font-color;
+      border-radius: 3px;
+      padding: 5px;
+      margin: 5px 0 5px 0;
+    }
 }
 
 // admin icon
 #admin-icon {
   position: absolute;
   z-index: 1;
-  top: 0;
+  bottom: 0;
   right: 0;
   padding: 5px;
   color: $main-font-color;
@@ -21,9 +27,6 @@
   .main-container{
     background: $main-background-color;
     color: $main-font-color;
-    .edit-link {
-      color: $main-font-color;
-    }
   }
   hr{
     border-top: 1px solid $main-font-color;

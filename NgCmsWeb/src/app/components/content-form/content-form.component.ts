@@ -17,45 +17,38 @@ import { Message } from 'primeng/primeng';
 export class ContentFormComponent implements OnInit {
     @Input() content: ContentModel;
     @Input() referral: string;
-    editedContent: ContentUpdateModel;
-    contentForm: FormGroup;
-
+    editedContent: ContentUpdateModel = new ContentUpdateModel();
+    changesMade: boolean = false;
     constructor(private fb: FormBuilder, private contentService: ContentService, private router: Router, private growlService: GrowlService) {
-        this.contentForm = this.fb.group({
-            content: ['']
-        });
     }
 
     ngOnInit() {
-        this.initForm(this.content);
-
         EmitterService.emitter('selected_content_changed').subscribe(res => {
-            this.initForm(res);
-            this.content = res;
-        });
-    }
-
-    initForm(model) {
-        this.contentForm = this.fb.group({
-            content: [model.content]
+            this.changesMade = false;
         });
     }
 
     save() {
         this.editedContent = new ContentUpdateModel().deserialize(this.content);
-        for (const property in this.contentForm.value) {
-            if (this.editedContent.hasOwnProperty(property)) {
-                this.editedContent[property] = this.contentForm.value[property];
-            }
-        }
         this.contentService.updateContent(this.editedContent).subscribe(res => {
             this.contentService.contentArr[this.contentService.contentArr
                 .findIndex(c => c.guid === this.editedContent.guid)] = this.editedContent;
             this.growlService.messageArr.push({ severity: 'success', summary: 'Info Message', detail: 'Saved content' });
+            debugger;
             EmitterService.emitter('content_updated').emit(this.editedContent);
             if (this.referral !== undefined) {
                 this.router.navigate([this.referral]);
             }
+            this.changesMade = false;
         });
+    }
+
+    onChange(event) {
+        this.changesMade = true;
+    }
+
+    onReady(event) { }
+    onFocus(event) { }
+    onBlur(event) {
     }
 }

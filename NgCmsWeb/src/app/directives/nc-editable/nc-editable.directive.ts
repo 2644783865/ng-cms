@@ -49,9 +49,10 @@ export class NcEditableDirective implements OnInit {
         const elementId = newGuid();
         this.editLink = '/admin/edit-content/' + this.content.guid;
         this.element.nativeElement.innerHTML =
-            '<a class="edit-link" href="' + this.editLink + '" id="' + elementId + '">' +
+            '<a class="edit-link pull-right" href="' + this.editLink + '" id="' + elementId + '">' +
             '<i class="fa fa-pencil" style="padding-right: 5px;" aria-hidden="true"></i></a>' +
             this.content.content;
+        this.element.nativeElement.classList.add('edit-area');
         $('#' + elementId).click(e => {
             e.preventDefault();
             this.router.navigate(['/admin/edit-content', this.content.guid], { queryParams: { returnUrl: this.router.url }})

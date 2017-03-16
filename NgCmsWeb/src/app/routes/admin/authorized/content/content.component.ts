@@ -21,8 +21,8 @@ export class Content implements OnInit {
     ngOnInit() {
         EmitterService.emitter('content_updated').subscribe(res => {
             this.selectedContent = res;
+            console.log(this.selectedContent);
             const nodeFound = this.findNode(res.guid, this.data[0]);
-            console.log(nodeFound);
         });
     }
 
@@ -45,6 +45,7 @@ export class Content implements OnInit {
                 // Return the result if the node has been found
                 if (result !== false) {
                     result.data = this.selectedContent;
+                    console.log(result.data);
                     return result;
                 }
             }
@@ -62,12 +63,9 @@ export class Content implements OnInit {
 
     nodeSelect(event) {
         if (event.node.data.guid !== null) {
+            EmitterService.emitter('selected_content_changed')
             this.contentService.getContentByGuid(event.node.data.guid).subscribe(res => {
-                if (this.selectedContent !== undefined) {
-                    EmitterService.emitter('selected_content_changed').emit(res);
-                } else {
-                    this.selectedContent = res;
-                }
+                this.selectedContent = res;
             });
         }
     }
