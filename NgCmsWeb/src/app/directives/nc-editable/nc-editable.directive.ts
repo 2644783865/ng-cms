@@ -4,6 +4,7 @@ import { ContentCreateModel } from './../../models/content-create.model';
 import { ContentModel } from './../../models/content.model';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth-service/auth.service';
+import { newGuid } from './../../helpers/guid-generator';
 
 @Directive({ selector: '[ncEditable]' })
 
@@ -45,15 +46,15 @@ export class NcEditableDirective implements OnInit {
     }
 
     appendLink() {
+        const elementId = newGuid();
         this.editLink = '/admin/edit-content/' + this.content.guid;
         this.element.nativeElement.innerHTML =
-            '<a class="edit-link" href="' + this.editLink + '" id="' + this.content.guid + '">' +
+            '<a class="edit-link" href="' + this.editLink + '" id="' + elementId + '">' +
             '<i class="fa fa-pencil" style="padding-right: 5px;" aria-hidden="true"></i></a>' +
             this.content.content;
-
-        $('#' + this.content.guid).click(e => {
+        $('#' + elementId).click(e => {
             e.preventDefault();
-            this.router.navigateByUrl($('#' + this.content.guid).attr('href'));
+            this.router.navigate(['/admin/edit-content', this.content.guid], { queryParams: { returnUrl: this.router.url }})
         });
 
         const foundContent = this.contentService.contentArr.find(c => c.guid === this.content.guid);
