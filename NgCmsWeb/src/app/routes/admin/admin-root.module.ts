@@ -4,9 +4,10 @@ import { LoginModule } from './login/login.module';
 import { RegisterFormModule } from './../../components/register-form/register-form.module';
 import { AdminRoutes } from './admin-root.routes';
 import { CommonModule } from '@angular/common';
+import { GrowlModule } from 'primeng/primeng';
 
 @NgModule({
-    imports: [CommonModule, LoginModule, AdminRoutes],
+    imports: [CommonModule, GrowlModule, LoginModule, AdminRoutes],
     exports: [AdminRoot],
     declarations: [AdminRoot]
 })

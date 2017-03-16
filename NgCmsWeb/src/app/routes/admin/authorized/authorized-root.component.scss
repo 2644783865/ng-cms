@@ -1,6 +1,16 @@
 @import "./../../../../assets/styles/admin/variables";
 @import "./../../../../assets/styles/admin/mixins";
 
+.main-container {
+    height: 95.9vh;
+}
+
+@media (min-width: 992px) {
+  .main-container {
+      height: 95.7vh;
+  }
+}
+
 a:hover{
     cursor: pointer;
 }

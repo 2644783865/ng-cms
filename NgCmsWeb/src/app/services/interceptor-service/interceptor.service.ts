@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { GrowlService } from './../growl-service/growl.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
@@ -9,7 +10,7 @@ import 'rxjs/add/observable/throw';
 export class InterceptorService {
     public baseUrl: string;
 
-    constructor(private router: Router, private http: Http) {
+    constructor(private router: Router, private http: Http, private growlService: GrowlService) {
         this.baseUrl = 'http://localhost:53203/';
     }
 
@@ -63,6 +64,7 @@ export class InterceptorService {
     private throwError(error: any) {
         const obj = error.headers.has('Content-Type') ? error.json() : error;
         const msg = obj.error_description || obj.Message || 'Server error';
+        this.growlService.messageArr.push({ severity: 'error', summary: 'Error Message', detail: msg });
         return Observable.throw(msg);
     }
 

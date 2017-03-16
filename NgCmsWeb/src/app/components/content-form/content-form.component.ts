@@ -16,6 +16,7 @@ import { Message } from 'primeng/primeng';
 
 export class ContentFormComponent implements OnInit {
     @Input() content: ContentModel;
+    @Input() referral: string;
     editedContent: ContentUpdateModel;
     contentForm: FormGroup;
 
@@ -52,6 +53,9 @@ export class ContentFormComponent implements OnInit {
                 .findIndex(c => c.guid === this.editedContent.guid)] = this.editedContent;
             this.growlService.messageArr.push({ severity: 'success', summary: 'Info Message', detail: 'Saved content' });
             EmitterService.emitter('content_updated').emit(this.editedContent);
+            if (this.referral !== undefined) {
+                this.router.navigate([this.referral]);
+            }
         });
     }
 }

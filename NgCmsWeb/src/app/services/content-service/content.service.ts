@@ -4,7 +4,6 @@ import { Headers } from '@angular/http';
 import { InterceptorService } from './../interceptor-service/interceptor.service';
 import { Observable } from 'rxjs/Observable';
 import { ContentModel } from './../../models/content.model';
-
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 

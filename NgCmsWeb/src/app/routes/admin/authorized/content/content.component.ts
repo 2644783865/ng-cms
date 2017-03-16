@@ -44,7 +44,6 @@ export class Content implements OnInit {
 
                 // Return the result if the node has been found
                 if (result !== false) {
-                    debugger;
                     result.data = this.selectedContent;
                     return result;
                 }

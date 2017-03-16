@@ -5,10 +5,9 @@ import { UsersModule } from './users/users.module';
 import { EditContentModule } from './edit-content/edit-content.module';
 import { AuthorizedRoutes } from './authorized-root.routes';
 import { CommonModule } from '@angular/common';
-import { GrowlModule } from 'primeng/primeng';
 
 @NgModule({
-    imports: [CommonModule, ContentModule, UsersModule, EditContentModule, AuthorizedRoutes, GrowlModule],
+    imports: [CommonModule, ContentModule, UsersModule, EditContentModule, AuthorizedRoutes],
     exports: [AuthorizedRoot],
     declarations: [AuthorizedRoot]
 })

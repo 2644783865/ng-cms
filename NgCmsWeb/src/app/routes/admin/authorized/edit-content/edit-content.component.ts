@@ -11,8 +11,10 @@ import { ContentModel } from './../../../../models/content.model';
 
 export class EditContent implements OnDestroy {
     content: ContentModel;
+    referral: string;
     constructor(private route: ActivatedRoute, private contentService: ContentService, private growlService: GrowlService) {
         this.content = this.contentService.contentArr.find(c => c.guid === this.route.snapshot.params['guid']);
+        this.referral = this.route.snapshot.queryParams.returnUrl;
     }
 
     ngOnDestroy() {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GrowlService } from './../../../services/growl-service/growl.service';
 
 @Component({
     templateUrl: 'login.component.html',
@@ -6,6 +7,6 @@ import { Component } from '@angular/core';
 })
 
 export class Login {
-    constructor() {
+    constructor(private growlService: GrowlService) {
     }
 }
