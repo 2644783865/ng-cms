@@ -3,13 +3,7 @@
 // wrapper for content
 .main-container {
     padding-top: 15px;
-    height: 95.9vh;
-}
-
-@media (min-width: 992px) {
-  .main-container {
-      height: 95.7vh;
-  }
+    height: 100vh;
 }
 
 // admin icon
@@ -44,6 +38,10 @@
 .ui-growl {
     .ui-growl-message-success {
       background: $growl-success-color;
+      color: $growl-font-color;
+    }
+    .ui-growl-message-error {
+      background: $growl-error-color;
       color: $growl-font-color;
     }
 }
