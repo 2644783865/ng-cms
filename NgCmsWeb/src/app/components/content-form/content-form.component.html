@@ -1,9 +1,10 @@
-<h4>Editing '{{content?.name}}':</h4>
-<div class="form-group">
-	<ckeditor [(ngModel)]="content.content" [config]="{uiColor: '#f1f1f1'}" (change)="onChange($event)" (ready)="onReady($event)" (focus)="onFocus($event)"
-	 (blur)="onBlur($event)" debounce="500">
-	</ckeditor>
-</div>
-<div class="form-group">
-	<button type="button" (click)="save()" class="btn btn-default btn-block" [disabled]="!changesMade">Save</button>
+<div>
+	<h4>Editing '{{content?.name}}':</h4>
+	<div class="form-group">
+		<ck-editor [(ngModel)]="content.content" (change)="onChange($event)" (ready)="onReady()">
+		</ck-editor>
+	</div>
+	<div class="form-group">
+		<button type="button" (click)="save()" class="btn btn-default btn-block">Save</button>
+	</div>
 </div>

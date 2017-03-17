@@ -21,17 +21,16 @@ export class Content implements OnInit {
     ngOnInit() {
         EmitterService.emitter('content_updated').subscribe(res => {
             this.selectedContent = res;
-            console.log(this.selectedContent);
             const nodeFound = this.findNode(res.guid, this.data[0]);
         });
     }
 
     findNode(guid, currentNode) {
-        var i,
+        let i,
             currentChild,
             result;
 
-        if (guid == currentNode.data.guid) {
+        if (guid === currentNode.data.guid) {
             return currentNode;
         } else {
             // Use a for loop instead of forEach to avoid nested functions
@@ -63,7 +62,7 @@ export class Content implements OnInit {
 
     nodeSelect(event) {
         if (event.node.data.guid !== null) {
-            EmitterService.emitter('selected_content_changed')
+            EmitterService.emitter('selected_content_changed');
             this.contentService.getContentByGuid(event.node.data.guid).subscribe(res => {
                 this.selectedContent = res;
             });

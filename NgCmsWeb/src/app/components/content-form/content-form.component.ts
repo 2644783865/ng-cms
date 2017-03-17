@@ -18,14 +18,11 @@ export class ContentFormComponent implements OnInit {
     @Input() content: ContentModel;
     @Input() referral: string;
     editedContent: ContentUpdateModel = new ContentUpdateModel();
-    changesMade: boolean = false;
-    constructor(private fb: FormBuilder, private contentService: ContentService, private router: Router, private growlService: GrowlService) {
+    constructor(private fb: FormBuilder, private contentService: ContentService,
+        private router: Router, private growlService: GrowlService) {
     }
 
     ngOnInit() {
-        EmitterService.emitter('selected_content_changed').subscribe(res => {
-            this.changesMade = false;
-        });
     }
 
     save() {
@@ -34,21 +31,18 @@ export class ContentFormComponent implements OnInit {
             this.contentService.contentArr[this.contentService.contentArr
                 .findIndex(c => c.guid === this.editedContent.guid)] = this.editedContent;
             this.growlService.messageArr.push({ severity: 'success', summary: 'Info Message', detail: 'Saved content' });
-            debugger;
             EmitterService.emitter('content_updated').emit(this.editedContent);
             if (this.referral !== undefined) {
                 this.router.navigate([this.referral]);
             }
-            this.changesMade = false;
         });
     }
 
-    onChange(event) {
-        this.changesMade = true;
+    onChange(value) {
+        console.log(value);
     }
 
-    onReady(event) { }
-    onFocus(event) { }
-    onBlur(event) {
+    onReady() {
+        console.log('ready');
     }
 }

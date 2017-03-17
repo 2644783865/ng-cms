@@ -3,10 +3,10 @@ import { ContentFormComponent } from './content-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { GrowlModule } from 'primeng/primeng';
-import { CKEditorModule } from 'ng2-ckeditor';
+import { CkEditorModule } from './../ck-editor/ck-editor.module';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, GrowlModule, CKEditorModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, GrowlModule, CkEditorModule],
     exports: [ContentFormComponent],
     declarations: [ContentFormComponent],
     providers: [],

@@ -21,6 +21,7 @@ using NgCmsBackend.Enums;
 using NgCmsBackend.Repositories;
 using NgCmsBackend.Services;
 using System.Linq;
+using Microsoft.Ajax.Utilities;
 
 namespace NgCmsApi.Controllers
 {
@@ -52,7 +53,7 @@ namespace NgCmsApi.Controllers
                         Guid = null,
                         Content = null
                     },
-                    Children = x.tblContent.Select(y => new PageTreeModel()
+                    Children = x.tblContent.DistinctBy(c => c.Name).Select(y => new PageTreeModel()
                     {
                         Data = new TreeListModel()
                         {
