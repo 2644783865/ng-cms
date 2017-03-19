@@ -1,13 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
-import { HomeRoot } from './home-root.component';
+import { MainRoot } from './main-root.component';
 import { ModuleWithProviders } from '@angular/core';
 
 export const routes: Routes = [
   {
-    path: '', component: HomeRoot, children: [
+    path: '', component: MainRoot, children: [
       // Add child-routes here
    ]
   },
 ];
 
-export const HomeRoutes: ModuleWithProviders = RouterModule.forChild(routes);
+export const MainRoutes: ModuleWithProviders = RouterModule.forChild(routes);

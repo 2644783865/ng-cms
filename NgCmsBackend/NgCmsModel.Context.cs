@@ -13,10 +13,10 @@ namespace NgCmsBackend
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class NgCmsEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public NgCmsEntities()
-            : base("name=NgCmsEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     

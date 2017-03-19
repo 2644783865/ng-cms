@@ -37,8 +37,6 @@ export class CkEditorComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         this.editor = window['CKEDITOR']['replace'](this.id);
         this.editor.config.toolbar = 'Standard';
-        this.editor.config.disableNativeSpellChecker = false;
-        this.editor.config.scayt_autoStartup = true;
 
         // init value
         this.editor.setData(this.value);
@@ -52,6 +50,10 @@ export class CkEditorComponent implements OnInit, AfterViewInit {
             this.change.emit(value);
             this.updateValue(value);
         });
+
+        // add custom styles to editor
+        this.editor.config.contentsCss = ['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', '/assets/styles/ckeditor.css']
+        this.editor.config.allowedContent = true;
     }
 
     updateValue(value) {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NgCmsBackend.DbContexts
 {
-    public class BaseDbContext : NgCmsEntities
+    public class BaseDbContext : Entities
     {
         public static BaseDbContext Create()
         {

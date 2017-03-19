@@ -26,6 +26,14 @@ export class PageService {
         return this.interceptor.post(this.baseUrl + 'Create', JSON.stringify(model));
     }
 
+    public getPagesWithChildren() {
+        return this.interceptor.get(this.baseUrl + 'GetPagesWithChildren').map(res => {
+            return res;
+        }).catch(error => {
+            return Observable.of(error);
+        });
+    }
+
     public getPagesWithContent() {
         return this.interceptor.get(this.baseUrl + 'GetPagesWithContent').map(res => {
             return res;

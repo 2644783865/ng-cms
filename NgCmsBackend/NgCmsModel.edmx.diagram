@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="NgCmsBackend.tblUser" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="NgCmsBackend.FK_tblContent_tblPage" ManuallyRouted="false" />
         <AssociationConnector Association="NgCmsBackend.tblUserRole" ManuallyRouted="false" />
+        <AssociationConnector Association="NgCmsBackend.FK_tblPage_tblPage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

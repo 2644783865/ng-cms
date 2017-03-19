@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { EditContent } from './edit-content.component';
-import { ContentFormModule } from './../../../../components/content-form/content-form.module';
 
 @NgModule({
-    imports: [ContentFormModule],
+    imports: [],
     exports: [EditContent],
     declarations: [EditContent],
 })

@@ -18,6 +18,7 @@ namespace NgCmsBackend
         public tblPage()
         {
             this.tblContent = new HashSet<tblContent>();
+            this.tblPage1 = new HashSet<tblPage>();
         }
     
         public int PageId { get; set; }
@@ -25,8 +26,12 @@ namespace NgCmsBackend
         public System.Guid Guid { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime Modified { get; set; }
+        public Nullable<int> ParentPageId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblContent> tblContent { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPage> tblPage1 { get; set; }
+        public virtual tblPage tblPage2 { get; set; }
     }
 }

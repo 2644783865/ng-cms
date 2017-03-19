@@ -14,5 +14,9 @@ namespace NgCmsApi.Models
         [Required]
         [JsonProperty("path")]
         public string Path { get; set; }
+
+        [Required]
+        [JsonProperty("parentGuid")]
+        public Guid ParentGuid { get; set; }
     }
 }

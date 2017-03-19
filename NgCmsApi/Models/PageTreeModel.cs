@@ -8,11 +8,15 @@ namespace NgCmsApi.Models
     public class PageTreeModel
     {
         [Required]
-        [JsonProperty("data")]
-        public TreeListModel Data { get; set; }
+        [JsonProperty("guid")]
+        public Guid Guid { get; set; }
+
+        [Required]
+        [JsonProperty("path")]
+        public string Path { get; set; }
 
         [Required]
         [JsonProperty("children")]
-        public List<PageTreeModel> Children { get; set; }
+        public List<PageModel> Children { get; set; }
     }
 }

@@ -36,36 +36,23 @@ namespace NgCmsApi.Controllers
         {
         }
 
-        [Route("GetPagesWithContent")]
+        [AllowAnonymous]
+        [Route("GetPagesWithChildren")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetPagesWithContent()
+        public async Task<IHttpActionResult> GetPagesWithChildren()
         {
-            var pageList = await pageService.GetPages();
+            var pages = await pageService.GetPages();
 
-            return Ok(new PageContentTreeModel()
+            return Ok(pages.Where(p => p.ParentPageId == null).Select(p => new PageTreeModel()
             {
-                Data = pageList.Select(x => new PageTreeModel()
+                Guid = p.Guid,
+                Path = p.Path,
+                Children = p.tblPage1.Select(pc => new PageModel()
                 {
-                    Data = new TreeListModel()
-                    {
-                        // Page as first node
-                        Name = x.Path,
-                        Guid = null,
-                        Content = null
-                    },
-                    Children = x.tblContent.DistinctBy(c => c.Name).Select(y => new PageTreeModel()
-                    {
-                        Data = new TreeListModel()
-                        {
-                            Guid = y.Guid,
-                            Name = y.Name,
-                            Content = y.Content
-                        },
-                        Children = new List<PageTreeModel>()
-                   }).ToList()
-                   
-               }).ToList()
-            });
+                    Guid = pc.Guid,
+                    Path = pc.Path
+                }).ToList()
+            }).ToList());
         }
 
         [AllowAnonymous]
@@ -77,18 +64,14 @@ namespace NgCmsApi.Controllers
 
             if (page == null)
             {
-                page = new tblPage()
-                {
-                    Path = model.Path
-                };
-
-                await pageService.CreatePage(page);
+                return BadRequest("Page not found");
             }
 
             return Ok(new PageModel()
             {
                 Guid = page.Guid,
-                Path = page.Path
+                Path = page.Path,
+                ParentGuid = page.tblPage2.Guid
             });
         }
 
