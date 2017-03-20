@@ -12,6 +12,8 @@ namespace NgCmsBackend
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Entities : DbContext
     {
@@ -29,5 +31,10 @@ namespace NgCmsBackend
         public virtual DbSet<tblPage> tblPage { get; set; }
         public virtual DbSet<tblRole> tblRole { get; set; }
         public virtual DbSet<tblUser> tblUser { get; set; }
+    
+        public virtual ObjectResult<spPageTree_Result> spPageTree()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spPageTree_Result>("spPageTree");
+        }
     }
 }

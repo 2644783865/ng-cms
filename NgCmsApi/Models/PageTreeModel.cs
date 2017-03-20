@@ -9,14 +9,17 @@ namespace NgCmsApi.Models
     {
         [Required]
         [JsonProperty("guid")]
-        public Guid Guid { get; set; }
+        public Guid? Guid { get; set; }
 
         [Required]
         [JsonProperty("path")]
         public string Path { get; set; }
 
+        [JsonProperty("parentPageGuid")]
+        public Guid? ParentPageGuid { get; set; }
+
         [Required]
-        [JsonProperty("children")]
-        public List<PageModel> Children { get; set; }
+        [JsonProperty("generation")]
+        public int? Generation { get; set; }
     }
 }

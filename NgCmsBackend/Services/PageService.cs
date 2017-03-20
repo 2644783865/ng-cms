@@ -25,6 +25,11 @@ namespace NgCmsBackend.Services
             return await PageRepo.List();
         }
 
+        public List<spPageTree_Result> GetPageTree()
+        {
+            return PageRepo.GetPageTree();
+        }
+
         public async Task<tblPage> GetPageByPath(string path)
         {
             return await PageRepo.FindAsync(x => x.Path.Equals(path));

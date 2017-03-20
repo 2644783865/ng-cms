@@ -87,6 +87,9 @@
     <Compile Include="Services\ContentService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="spPageTree_Result.cs">
+      <DependentUpon>NgCmsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblContent.cs">
       <DependentUpon>NgCmsModel.tt</DependentUpon>
     </Compile>

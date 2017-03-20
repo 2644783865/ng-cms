@@ -18,5 +18,15 @@ namespace NgCmsBackend.Repositories
         {
             DbContext = dbContext;
         }
+
+        public List<spPageTree_Result> GetPageTree()
+        {
+            return DbContext.spPageTree().ToList();
+        }
+
+        public async Task<IList<tblContent>> GetContentByPageGuid(Guid guid)
+        {
+            return await DbContext.tblContent.Where(x => x.tblPage.Guid.Equals(guid)).ToListAsync();
+        }
     }
 }

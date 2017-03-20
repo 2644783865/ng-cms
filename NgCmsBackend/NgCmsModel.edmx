@@ -105,6 +105,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="spPageTree" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="NgCmsBackendStoreContainer">
           <EntitySet Name="tblContent" EntityType="Self.tblContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPage" EntityType="Self.tblPage" Schema="dbo" store:Type="Tables" />
@@ -215,6 +216,7 @@
             <End Role="tblPage" EntitySet="tblPage" />
             <End Role="tblPage1" EntitySet="tblPage" />
           </AssociationSet>
+          <FunctionImport Name="spPageTree" ReturnType="Collection(NgCmsBackend.spPageTree_Result)" />
         </EntityContainer>
         <Association Name="FK_tblPage_tblPage">
           <End Type="NgCmsBackend.tblPage" Role="tblPage" Multiplicity="0..1" />
@@ -228,6 +230,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="spPageTree_Result">
+          <Property Type="Int32" Name="Generation" Nullable="true" />
+          <Property Type="Int32" Name="ParentId" Nullable="true" />
+          <Property Type="Int32" Name="PageId" Nullable="true" />
+          <Property Type="String" Name="Path" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="Guid" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -290,6 +299,17 @@
               <ScalarProperty Name="UserId" ColumnName="UserId_Fk" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="spPageTree" FunctionName="NgCmsBackend.Store.spPageTree">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NgCmsBackend.spPageTree_Result">
+                <ScalarProperty Name="Generation" ColumnName="Generation" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="PageId" ColumnName="PageId" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

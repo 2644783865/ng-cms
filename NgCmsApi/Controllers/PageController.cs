@@ -29,8 +29,7 @@ namespace NgCmsApi.Controllers
     [RoutePrefix("api/Page")]
     public class PageController : ApiController
     {
-        private readonly PageService pageService = new PageService();
-        private readonly ContentService contentService = new ContentService();
+        private readonly PageService _pageService = new PageService();
 
         public PageController()
         {
@@ -39,20 +38,23 @@ namespace NgCmsApi.Controllers
         [AllowAnonymous]
         [Route("GetPagesWithChildren")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetPagesWithChildren()
+        public async Task<List<PageTreeModel>> GetPagesWithChildren()
         {
-            var pages = await pageService.GetPages();
+            var pageTree = _pageService.GetPageTree();
+            var pages = await _pageService.GetPages();
 
-            return Ok(pages.Where(p => p.ParentPageId == null).Select(p => new PageTreeModel()
+            Func<int?, Guid?> getPageGuid = (id) =>
+            {
+                return pages.FirstOrDefault(p => p.PageId == id)?.Guid;
+            };
+
+            return pageTree.Select(p => new PageTreeModel()
             {
                 Guid = p.Guid,
                 Path = p.Path,
-                Children = p.tblPage1.Select(pc => new PageModel()
-                {
-                    Guid = pc.Guid,
-                    Path = pc.Path
-                }).ToList()
-            }).ToList());
+                ParentPageGuid = getPageGuid(p.ParentId),
+                Generation = p.Generation
+            }).ToList();
         }
 
         [AllowAnonymous]
@@ -60,7 +62,7 @@ namespace NgCmsApi.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> GetByPath(PathModel model)
         {
-            var page = await pageService.GetPageByPath(model.Path);
+            var page = await _pageService.GetPageByPath(model.Path);
 
             if (page == null)
             {
@@ -84,13 +86,13 @@ namespace NgCmsApi.Controllers
                 Path = model.Path
             };
 
-            var foundPage = await pageService.GetPageByPath(model.Path);
+            var foundPage = await _pageService.GetPageByPath(model.Path);
 
             if (foundPage != null) {
                 return BadRequest("Page already exists");
             }
 
-            await pageService.CreatePage(page);   
+            await _pageService.CreatePage(page);   
 
             return Ok(new PageModel()
             {
