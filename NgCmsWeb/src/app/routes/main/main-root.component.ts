@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PageService } from './../../services/page-service/page.service';
 import { RouteModel } from './../../models/route.model';
-import { PageBase2Component } from './../../components/page-base2/page-base2.component';
+import { PageBaseComponent } from './../../components/page-base/page-base.component';
 
 @Component({
     templateUrl: 'main-root.component.html',
@@ -11,14 +11,7 @@ import { PageBase2Component } from './../../components/page-base2/page-base2.com
 
 export class MainRoot {
     constructor(private pageService: PageService, private router: Router, route: ActivatedRoute) {
-        debugger;
-        route.routeConfig.children = [
-            {
-                path: 'path2',
-                component: PageBase2Component
-            }
-        ];
-        debugger;
+
     }
 
     ngOnInit() {
@@ -26,27 +19,6 @@ export class MainRoot {
         this.pageService.getPagesWithChildren().subscribe(res => {
             let test;
             test = this.treeify(res, 'guid', 'parentPageGuid', 'children');
-
-            // let json = [
-            //     {
-            //         loadChildren: test,
-            //         path: ''
-            //     },
-            //     {
-            //         loadChildren: 'app/routes/admin/admin-root.module#AdminRootModule',
-            //         path: 'admin'
-            //     }
-            // ];
-
-            // test.forEach(x => {
-
-
-            //      this.router.config.push(x)
-            //  }
-            //  );
-
-
-            // this.router.resetConfig(this.router.config);
         });
     }
 
