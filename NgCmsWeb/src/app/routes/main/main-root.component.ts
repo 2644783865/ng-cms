@@ -12,20 +12,7 @@ import { routes } from './main-root.routes';
 
 export class MainRoot {
     constructor(private pageService: PageService, private router: Router, route: ActivatedRoute) {
-        debugger;
-        console.log(this.pageService.test);
-
-
-        debugger;
-    }
-
-    ngOnInit() {
-
-        // load pages and apply to route-config
-        // this.pageService.getPagesWithChildren().subscribe(res => {
-        //     let test;
-        //     test = this.treeify(res, 'guid', 'parentPageGuid', 'children');
-        // });
+        route.routeConfig.children = this.pageService.getConfig();
     }
 
     treeify(list, idAttr, parentAttr, childrenAttr) {

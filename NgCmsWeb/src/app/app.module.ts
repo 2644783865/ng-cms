@@ -1,3 +1,5 @@
+import { MainRootModule } from './routes/main/main-root.module';
+import { CanActivateMain } from './guards/main.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -19,13 +21,14 @@ import * as $ from 'jquery';
 
 @NgModule({
   declarations: [
-    AppComponent, MainRoot
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     CommonModule,
+    MainRootModule,
     routing
   ],
   providers: [
@@ -35,6 +38,7 @@ import * as $ from 'jquery';
     EmitterService,
     CanActivateAdmin,
     CanActivateEditor,
+    CanActivateMain,
     ContentService,
     PageService,
     PageResolve
