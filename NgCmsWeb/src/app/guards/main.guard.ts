@@ -12,7 +12,7 @@ export class CanActivateMain implements CanActivate {
     public canActivate(): Promise<boolean> {
         return new Promise(resolve => {
             this.pageService.getPagesWithChildren()
-                .subscribe(menuGroups => {
+                .subscribe(res => {
                     resolve(false);
 
                     // modify current route-config with new one from service
