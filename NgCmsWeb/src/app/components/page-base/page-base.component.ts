@@ -9,6 +9,5 @@ import { ActivatedRoute } from '@angular/router';
 
 export class PageBaseComponent {
     constructor(private route: ActivatedRoute) {
-        console.log('constructed /' + route.snapshot.url);
     }
 }
