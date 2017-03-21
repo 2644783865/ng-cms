@@ -5,8 +5,10 @@
 </div>
 <div class="main-container">
     <div class="container-fluid">
-        <a routerLink="/1">1</a>
-        <a routerLink="/2">2</a>
+        <div class="col-md-12" *ngFor="let page of pageService.pages">
+            <a routerLink="/{{page.path}}">{{page.path}}</a>
+        </div>
+        <br>
         <router-outlet></router-outlet>
     </div>
 </div>

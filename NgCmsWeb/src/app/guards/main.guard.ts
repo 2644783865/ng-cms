@@ -1,12 +1,6 @@
 import { PageService } from '../services/page-service/page.service';
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRoute } from '@angular/router';
-import { InterceptorService } from '../services/interceptor-service/interceptor.service';
-import { AuthService } from '../services/auth-service/auth.service';
-import { Observable } from 'rxjs/Observable';
-import { PageBaseComponent } from '../components/page-base/page-base.component';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable()
 
@@ -20,9 +14,12 @@ export class CanActivateMain implements CanActivate {
             this.pageService.getPagesWithChildren()
                 .subscribe(menuGroups => {
                     resolve(false);
+
+                    // modify current route-config with new one from service
                     this.router.config[0].children = this.pageService.getConfig();
+
+                    // reset route-config using new config from pageService and navigate to the requested url
                     this.router.resetConfig(this.router.config);
-                    console.log('constructed routes');
                     this.router.navigateByUrl(window.location.pathname);
                 });
         });

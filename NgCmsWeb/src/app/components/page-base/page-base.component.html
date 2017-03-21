@@ -1,1 +1,2 @@
-page-base
+<a *ngFor="let child of route.snapshot.routeConfig.children" routerLink="{{child.path}}"> / {{child.path}}</a>
+<router-outlet></router-outlet>

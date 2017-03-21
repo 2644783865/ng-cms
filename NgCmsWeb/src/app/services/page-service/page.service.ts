@@ -5,6 +5,7 @@ import { InterceptorService } from './../interceptor-service/interceptor.service
 import { EmitterService } from './../emitter-service/emitter.service';
 import { Observable } from 'rxjs/Observable';
 import { PageModel } from './../../models/page.model';
+import { RouteModel } from './../../models/route.model';
 import { PageCreateModel } from './../../models/page-create.model';
 import { PageBaseComponent } from './../../components/page-base/page-base.component';
 import 'rxjs/add/observable/of';
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class PageService {
-    public pages: any;
+    public pages: RouteModel[] = [];
     public pageArr: PageModel[] = [];
     private baseUrl: string;
 
@@ -31,8 +32,11 @@ export class PageService {
 
     public getPagesWithChildren() {
         return this.interceptor.get(this.baseUrl + 'GetPagesWithChildren').map(res => {
-            console.log('fetched pages');
-            this.pages = res;
+            let routes = this.treeify(res, 'guid', 'parentPageGuid', 'children');
+
+            // set pages based on api-response
+            this.pages = routes[0].children;
+            
             return res;
         }).catch(error => {
             return Observable.of(error);
@@ -40,12 +44,7 @@ export class PageService {
     }
 
     public getConfig() {
-        return [{
-                    path: '1', component: PageBaseComponent
-                },
-                {
-                    path: '2', component: PageBaseComponent
-                }];
+        return this.pages;
     }
 
     public getPagesWithContent() {
@@ -55,4 +54,25 @@ export class PageService {
             return Observable.of(error);
         });
     }
+
+    treeify(list, idAttr, parentAttr, childrenAttr) {
+        if (!idAttr) idAttr = 'guid';
+        if (!parentAttr) parentAttr = 'parentPageGuid';
+        if (!childrenAttr) childrenAttr = 'children';
+
+        var treeList = [];
+        var lookup = {};
+        list.forEach(function (obj) {
+            lookup[obj[idAttr]] = obj;
+            obj[childrenAttr] = [];
+        });
+        list.forEach(function (obj) {
+            if (obj[parentAttr] != null) {
+                lookup[obj[parentAttr]][childrenAttr].push(new RouteModel(obj.path, PageBaseComponent, obj.children));
+            } else {
+                treeList.push(new RouteModel(obj.path, PageBaseComponent, obj.children));
+            }
+        });
+        return treeList;
+    };
 }

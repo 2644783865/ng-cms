@@ -14,25 +14,4 @@ export class MainRoot {
     constructor(private pageService: PageService, private router: Router, route: ActivatedRoute) {
         route.routeConfig.children = this.pageService.getConfig();
     }
-
-    treeify(list, idAttr, parentAttr, childrenAttr) {
-        if (!idAttr) idAttr = 'guid';
-        if (!parentAttr) parentAttr = 'parentPageGuid';
-        if (!childrenAttr) childrenAttr = 'children';
-
-        var treeList = [];
-        var lookup = {};
-        list.forEach(function (obj) {
-            lookup[obj[idAttr]] = obj;
-            obj[childrenAttr] = [];
-        });
-        list.forEach(function (obj) {
-            if (obj[parentAttr] != null) {
-                lookup[obj[parentAttr]][childrenAttr].push(new RouteModel(obj.path, PageBaseComponent, obj.children));
-            } else {
-                treeList.push(new RouteModel(obj.path, PageBaseComponent, obj.children));
-            }
-        });
-        return treeList;
-    };
 }
