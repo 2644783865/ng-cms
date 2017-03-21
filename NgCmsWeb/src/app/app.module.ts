@@ -13,11 +13,13 @@ import { CanActivateAdmin } from './guards/admin.guard';
 import { CanActivateEditor } from './guards/editor.guard';
 import { ContentService } from './services/content-service/content.service';
 import { PageService } from './services/page-service/page.service';
+import { PageResolve } from './resolvers/page.resolve';
+import { MainRoot } from './routes/main/main-root.component';
 import * as $ from 'jquery';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, MainRoot
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import * as $ from 'jquery';
     CanActivateAdmin,
     CanActivateEditor,
     ContentService,
-    PageService
+    PageService,
+    PageResolve
   ],
   bootstrap: [AppComponent]
 })

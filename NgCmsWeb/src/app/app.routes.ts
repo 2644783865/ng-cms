@@ -1,9 +1,14 @@
 import { Routes, RouterModule } from '@angular/router';
 import { AdminRootModule } from './routes/admin/admin-root.module';
-import { MainRootModule } from './routes/main/main-root.module';
+import { MainRoot } from './routes/main/main-root.component';
+import { PageResolve } from './resolvers/page.resolve';
 
 export const routes: Routes = [
-    { path: '', loadChildren: 'app/routes/main/main-root.module#MainRootModule' },
+    {
+        path: '', component: MainRoot,  children: [], resolve: {
+            page: PageResolve
+        }
+    },
     { path: 'admin', loadChildren: 'app/routes/admin/admin-root.module#AdminRootModule' }
 ];
 

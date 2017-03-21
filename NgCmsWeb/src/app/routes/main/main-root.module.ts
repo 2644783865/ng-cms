@@ -10,7 +10,8 @@ import { RouterModule} from '@angular/router';
     imports: [MainRoutes, CommonModule, PageBaseModule],
     exports: [MainRoot],
     declarations: [MainRoot],
-    entryComponents: []
+    providers: [],
+    entryComponents: [PageBaseComponent]
 })
 
 export class MainRootModule { }

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PageService } from './../../services/page-service/page.service';
 import { RouteModel } from './../../models/route.model';
 import { PageBaseComponent } from './../../components/page-base/page-base.component';
+import { routes } from './main-root.routes';
 
 @Component({
     templateUrl: 'main-root.component.html',
@@ -11,15 +12,20 @@ import { PageBaseComponent } from './../../components/page-base/page-base.compon
 
 export class MainRoot {
     constructor(private pageService: PageService, private router: Router, route: ActivatedRoute) {
+        debugger;
+        console.log(this.pageService.test);
 
+
+        debugger;
     }
 
     ngOnInit() {
+
         // load pages and apply to route-config
-        this.pageService.getPagesWithChildren().subscribe(res => {
-            let test;
-            test = this.treeify(res, 'guid', 'parentPageGuid', 'children');
-        });
+        // this.pageService.getPagesWithChildren().subscribe(res => {
+        //     let test;
+        //     test = this.treeify(res, 'guid', 'parentPageGuid', 'children');
+        // });
     }
 
     treeify(list, idAttr, parentAttr, childrenAttr) {
