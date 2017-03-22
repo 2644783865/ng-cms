@@ -15,28 +15,28 @@
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Modified" Type="datetime" Nullable="false" />
-          <Property Name="PageId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tblPage">
-          <Key>
-            <PropertyRef Name="PageId" />
-          </Key>
-          <Property Name="PageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Path" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="Modified" Type="datetime" Nullable="false" />
-          <Property Name="ParentPageId" Type="int" />
+          <Property Name="RouteId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblRole">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Modified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRoute">
+          <Key>
+            <PropertyRef Name="RouteId" />
+          </Key>
+          <Property Name="RouteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Modified" Type="datetime" Nullable="false" />
+          <Property Name="ParentRouteId" Type="int" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
@@ -57,27 +57,27 @@
           <Property Name="RoleId_Fk" Type="int" Nullable="false" />
           <Property Name="UserId_Fk" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_tblContent_tblPage">
-          <End Role="tblPage" Type="Self.tblPage" Multiplicity="1" />
+        <Association Name="FK_tblContent_tblRoute">
+          <End Role="tblRoute" Type="Self.tblRoute" Multiplicity="1" />
           <End Role="tblContent" Type="Self.tblContent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblPage">
-              <PropertyRef Name="PageId" />
+            <Principal Role="tblRoute">
+              <PropertyRef Name="RouteId" />
             </Principal>
             <Dependent Role="tblContent">
-              <PropertyRef Name="PageId" />
+              <PropertyRef Name="RouteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblPage_tblPage">
-          <End Role="tblPage" Type="Self.tblPage" Multiplicity="0..1" />
-          <End Role="tblPage1" Type="Self.tblPage" Multiplicity="*" />
+        <Association Name="FK_tblRoute_tblRoute">
+          <End Role="tblRoute" Type="Self.tblRoute" Multiplicity="0..1" />
+          <End Role="tblRoute1" Type="Self.tblRoute" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblPage">
-              <PropertyRef Name="PageId" />
+            <Principal Role="tblRoute">
+              <PropertyRef Name="RouteId" />
             </Principal>
-            <Dependent Role="tblPage1">
-              <PropertyRef Name="ParentPageId" />
+            <Dependent Role="tblRoute1">
+              <PropertyRef Name="ParentRouteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -105,20 +105,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="spPageTree" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spRouteTree" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="NgCmsBackendStoreContainer">
           <EntitySet Name="tblContent" EntityType="Self.tblContent" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblPage" EntityType="Self.tblPage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRoute" EntityType="Self.tblRoute" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserRole" EntityType="Self.tblUserRole" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_tblContent_tblPage" Association="Self.FK_tblContent_tblPage">
-            <End Role="tblPage" EntitySet="tblPage" />
+          <AssociationSet Name="FK_tblContent_tblRoute" Association="Self.FK_tblContent_tblRoute">
+            <End Role="tblRoute" EntitySet="tblRoute" />
             <End Role="tblContent" EntitySet="tblContent" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblPage_tblPage" Association="Self.FK_tblPage_tblPage">
-            <End Role="tblPage" EntitySet="tblPage" />
-            <End Role="tblPage1" EntitySet="tblPage" />
+          <AssociationSet Name="FK_tblRoute_tblRoute" Association="Self.FK_tblRoute_tblRoute">
+            <End Role="tblRoute" EntitySet="tblRoute" />
+            <End Role="tblRoute1" EntitySet="tblRoute" />
           </AssociationSet>
           <AssociationSet Name="FK_tblUserRole_tblRole" Association="Self.FK_tblUserRole_tblRole">
             <End Role="tblRole" EntitySet="tblRole" />
@@ -133,184 +133,184 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NgCmsBackend" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="spRouteTree" ReturnType="Collection(NgCmsBackend.spRouteTree_Result)" />
+          <EntitySet Name="tblContent" EntityType="NgCmsBackend.tblContent" />
+          <EntitySet Name="tblRole" EntityType="NgCmsBackend.tblRole" />
+          <EntitySet Name="tblRoute" EntityType="NgCmsBackend.tblRoute" />
+          <EntitySet Name="tblUser" EntityType="NgCmsBackend.tblUser" />
+          <AssociationSet Name="FK_tblContent_tblRoute" Association="NgCmsBackend.FK_tblContent_tblRoute">
+            <End Role="tblRoute" EntitySet="tblRoute" />
+            <End Role="tblContent" EntitySet="tblContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRoute_tblRoute" Association="NgCmsBackend.FK_tblRoute_tblRoute">
+            <End Role="tblRoute" EntitySet="tblRoute" />
+            <End Role="tblRoute1" EntitySet="tblRoute" />
+          </AssociationSet>
+          <AssociationSet Name="tblUserRole" Association="NgCmsBackend.tblUserRole">
+            <End Role="tblRole" EntitySet="tblRole" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="spRouteTree_Result">
+          <Property Type="Int32" Name="RouteId" Nullable="true" />
+          <Property Type="Guid" Name="Guid" Nullable="true" />
+          <Property Type="String" Name="Path" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Generation" Nullable="true" />
+          <Property Type="Int32" Name="ParentId" Nullable="true" />
+        </ComplexType>
         <EntityType Name="tblContent">
           <Key>
             <PropertyRef Name="ContentId" />
           </Key>
           <Property Name="ContentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PageId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblPage" Relationship="Self.FK_tblContent_tblPage" FromRole="tblContent" ToRole="tblPage" />
-        </EntityType>
-        <EntityType Name="tblPage">
-          <Key>
-            <PropertyRef Name="PageId" />
-          </Key>
-          <Property Name="PageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tblContent" Relationship="Self.FK_tblContent_tblPage" FromRole="tblPage" ToRole="tblContent" />
-          <Property Name="ParentPageId" Type="Int32" />
-          <NavigationProperty Name="tblPage1" Relationship="NgCmsBackend.FK_tblPage_tblPage" FromRole="tblPage" ToRole="tblPage1" />
-          <NavigationProperty Name="tblPage2" Relationship="NgCmsBackend.FK_tblPage_tblPage" FromRole="tblPage1" ToRole="tblPage" />
+          <Property Name="RouteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblRoute" Relationship="NgCmsBackend.FK_tblContent_tblRoute" FromRole="tblContent" ToRole="tblRoute" />
         </EntityType>
         <EntityType Name="tblRole">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tblUser" Relationship="Self.tblUserRole" FromRole="tblRole" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser" Relationship="NgCmsBackend.tblUserRole" FromRole="tblRole" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblRoute">
+          <Key>
+            <PropertyRef Name="RouteId" />
+          </Key>
+          <Property Name="RouteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ParentRouteId" Type="Int32" />
+          <NavigationProperty Name="tblContent" Relationship="NgCmsBackend.FK_tblContent_tblRoute" FromRole="tblRoute" ToRole="tblContent" />
+          <NavigationProperty Name="tblRoute1" Relationship="NgCmsBackend.FK_tblRoute_tblRoute" FromRole="tblRoute" ToRole="tblRoute1" />
+          <NavigationProperty Name="tblRoute2" Relationship="NgCmsBackend.FK_tblRoute_tblRoute" FromRole="tblRoute1" ToRole="tblRoute" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="tblRole" Relationship="Self.tblUserRole" FromRole="tblUser" ToRole="tblRole" />
+          <NavigationProperty Name="tblRole" Relationship="NgCmsBackend.tblUserRole" FromRole="tblUser" ToRole="tblRole" />
         </EntityType>
-        <Association Name="FK_tblContent_tblPage">
-          <End Role="tblPage" Type="Self.tblPage" Multiplicity="1" />
-          <End Role="tblContent" Type="Self.tblContent" Multiplicity="*" />
+        <Association Name="FK_tblContent_tblRoute">
+          <End Type="NgCmsBackend.tblRoute" Role="tblRoute" Multiplicity="1" />
+          <End Type="NgCmsBackend.tblContent" Role="tblContent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblPage">
-              <PropertyRef Name="PageId" />
+            <Principal Role="tblRoute">
+              <PropertyRef Name="RouteId" />
             </Principal>
             <Dependent Role="tblContent">
-              <PropertyRef Name="PageId" />
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRoute_tblRoute">
+          <End Type="NgCmsBackend.tblRoute" Role="tblRoute" Multiplicity="0..1" />
+          <End Type="NgCmsBackend.tblRoute" Role="tblRoute1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoute">
+              <PropertyRef Name="RouteId" />
+            </Principal>
+            <Dependent Role="tblRoute1">
+              <PropertyRef Name="ParentRouteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="tblUserRole">
-          <End Role="tblRole" Type="Self.tblRole" Multiplicity="*" />
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <End Type="NgCmsBackend.tblRole" Role="tblRole" Multiplicity="*" />
+          <End Type="NgCmsBackend.tblUser" Role="tblUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblContent" EntityType="Self.tblContent" />
-          <EntitySet Name="tblPage" EntityType="Self.tblPage" />
-          <EntitySet Name="tblRole" EntityType="Self.tblRole" />
-          <EntitySet Name="tblUser" EntityType="Self.tblUser" />
-          <AssociationSet Name="FK_tblContent_tblPage" Association="Self.FK_tblContent_tblPage">
-            <End Role="tblPage" EntitySet="tblPage" />
-            <End Role="tblContent" EntitySet="tblContent" />
-          </AssociationSet>
-          <AssociationSet Name="tblUserRole" Association="Self.tblUserRole">
-            <End Role="tblRole" EntitySet="tblRole" />
-            <End Role="tblUser" EntitySet="tblUser" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblPage_tblPage" Association="NgCmsBackend.FK_tblPage_tblPage">
-            <End Role="tblPage" EntitySet="tblPage" />
-            <End Role="tblPage1" EntitySet="tblPage" />
-          </AssociationSet>
-          <FunctionImport Name="spPageTree" ReturnType="Collection(NgCmsBackend.spPageTree_Result)" />
-        </EntityContainer>
-        <Association Name="FK_tblPage_tblPage">
-          <End Type="NgCmsBackend.tblPage" Role="tblPage" Multiplicity="0..1" />
-          <End Type="NgCmsBackend.tblPage" Role="tblPage1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblPage">
-              <PropertyRef Name="PageId" />
-            </Principal>
-            <Dependent Role="tblPage1">
-              <PropertyRef Name="ParentPageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="spPageTree_Result">
-          <Property Type="Int32" Name="Generation" Nullable="true" />
-          <Property Type="Int32" Name="ParentId" Nullable="true" />
-          <Property Type="Int32" Name="PageId" Nullable="true" />
-          <Property Type="String" Name="Path" Nullable="true" MaxLength="500" />
-          <Property Type="Guid" Name="Guid" Nullable="true" />
-        </ComplexType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="NgCmsBackendStoreContainer" CdmEntityContainer="Entities">
+          <FunctionImportMapping FunctionImportName="spRouteTree" FunctionName="NgCmsBackend.Store.spRouteTree">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NgCmsBackend.spRouteTree_Result">
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Generation" ColumnName="Generation" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="tblContent">
             <EntityTypeMapping TypeName="NgCmsBackend.tblContent">
               <MappingFragment StoreEntitySet="tblContent">
-                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="PageId" ColumnName="PageId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblPage">
-            <EntityTypeMapping TypeName="NgCmsBackend.tblPage">
-              <MappingFragment StoreEntitySet="tblPage">
-                <ScalarProperty Name="ParentPageId" ColumnName="ParentPageId" />
-                <ScalarProperty Name="PageId" ColumnName="PageId" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblRole">
             <EntityTypeMapping TypeName="NgCmsBackend.tblRole">
               <MappingFragment StoreEntitySet="tblRole">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoute">
+            <EntityTypeMapping TypeName="NgCmsBackend.tblRoute">
+              <MappingFragment StoreEntitySet="tblRoute">
+                <ScalarProperty Name="ParentRouteId" ColumnName="ParentRouteId" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblUser">
             <EntityTypeMapping TypeName="NgCmsBackend.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="tblUserRole" TypeName="NgCmsBackend.tblUserRole" StoreEntitySet="tblUserRole">
-            <EndProperty Name="tblRole">
-              <ScalarProperty Name="RoleId" ColumnName="RoleId_Fk" />
-            </EndProperty>
             <EndProperty Name="tblUser">
               <ScalarProperty Name="UserId" ColumnName="UserId_Fk" />
             </EndProperty>
+            <EndProperty Name="tblRole">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId_Fk" />
+            </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="spPageTree" FunctionName="NgCmsBackend.Store.spPageTree">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="NgCmsBackend.spPageTree_Result">
-                <ScalarProperty Name="Generation" ColumnName="Generation" />
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="PageId" ColumnName="PageId" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

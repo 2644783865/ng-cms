@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9116a2378149420e833b61a3ae88ed99" Name="Diagram1">
-        <EntityTypeShape EntityType="NgCmsBackend.tblContent" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="NgCmsBackend.tblPage" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="NgCmsBackend.tblRole" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="NgCmsBackend.tblUser" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="NgCmsBackend.FK_tblContent_tblPage" ManuallyRouted="false" />
-        <AssociationConnector Association="NgCmsBackend.tblUserRole" ManuallyRouted="false" />
-        <AssociationConnector Association="NgCmsBackend.FK_tblPage_tblPage" />
+        <EntityTypeShape EntityType="NgCmsBackend.tblContent" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="NgCmsBackend.tblRole" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="NgCmsBackend.tblRoute" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="NgCmsBackend.tblUser" Width="1.5" PointX="3" PointY="5" />
+        <AssociationConnector Association="NgCmsBackend.FK_tblContent_tblRoute" />
+        <AssociationConnector Association="NgCmsBackend.FK_tblRoute_tblRoute" />
+        <AssociationConnector Association="NgCmsBackend.tblUserRole" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -11,12 +11,12 @@ namespace NgCmsBackend
 {
     using System;
     
-    public partial class spPageTree_Result
+    public partial class spRouteTree_Result
     {
+        public Nullable<int> RouteId { get; set; }
+        public Nullable<System.Guid> Guid { get; set; }
+        public string Path { get; set; }
         public Nullable<int> Generation { get; set; }
         public Nullable<int> ParentId { get; set; }
-        public Nullable<int> PageId { get; set; }
-        public string Path { get; set; }
-        public Nullable<System.Guid> Guid { get; set; }
     }
 }

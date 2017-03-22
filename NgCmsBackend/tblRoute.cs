@@ -12,26 +12,26 @@ namespace NgCmsBackend
     using System;
     using System.Collections.Generic;
     
-    public partial class tblPage
+    public partial class tblRoute
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblPage()
+        public tblRoute()
         {
             this.tblContent = new HashSet<tblContent>();
-            this.tblPage1 = new HashSet<tblPage>();
+            this.tblRoute1 = new HashSet<tblRoute>();
         }
     
-        public int PageId { get; set; }
+        public int RouteId { get; set; }
         public string Path { get; set; }
         public System.Guid Guid { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime Modified { get; set; }
-        public Nullable<int> ParentPageId { get; set; }
+        public Nullable<int> ParentRouteId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblContent> tblContent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblPage> tblPage1 { get; set; }
-        public virtual tblPage tblPage2 { get; set; }
+        public virtual ICollection<tblRoute> tblRoute1 { get; set; }
+        public virtual tblRoute tblRoute2 { get; set; }
     }
 }

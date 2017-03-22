@@ -28,13 +28,13 @@ namespace NgCmsBackend
         }
     
         public virtual DbSet<tblContent> tblContent { get; set; }
-        public virtual DbSet<tblPage> tblPage { get; set; }
         public virtual DbSet<tblRole> tblRole { get; set; }
+        public virtual DbSet<tblRoute> tblRoute { get; set; }
         public virtual DbSet<tblUser> tblUser { get; set; }
     
-        public virtual ObjectResult<spPageTree_Result> spPageTree()
+        public virtual ObjectResult<spRouteTree_Result> spRouteTree()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spPageTree_Result>("spPageTree");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spRouteTree_Result>("spRouteTree");
         }
     }
 }

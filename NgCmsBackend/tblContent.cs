@@ -20,8 +20,8 @@ namespace NgCmsBackend
         public System.Guid Guid { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime Modified { get; set; }
-        public int PageId { get; set; }
+        public int RouteId { get; set; }
     
-        public virtual tblPage tblPage { get; set; }
+        public virtual tblRoute tblRoute { get; set; }
     }
 }
