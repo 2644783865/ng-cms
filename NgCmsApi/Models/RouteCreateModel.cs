@@ -5,12 +5,8 @@ using System.Collections.Generic;
 
 namespace NgCmsApi.Models
 {
-    public class PageModel
+    public class RouteCreateModel
     {
-        [Required]
-        [JsonProperty("guid")]
-        public Guid Guid { get; set; }
-
         [Required]
         [JsonProperty("path")]
         public string Path { get; set; }

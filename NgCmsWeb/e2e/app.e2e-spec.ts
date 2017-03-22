@@ -1,10 +1,10 @@
-import { NgcmsPage } from './app.po';
+import { NgCmsPage } from './app.po';
 
-describe('ngcms App', () => {
-  let page: NgcmsPage;
+describe('ng-cms App', () => {
+  let page: NgCmsPage;
 
   beforeEach(() => {
-    page = new NgcmsPage();
+    page = new NgCmsPage();
   });
 
   it('should display message saying app works', () => {

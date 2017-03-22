@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, AfterViewInit, Output, EventEmitter, forwardRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { newGuid } from './../../helpers/guid-helper';
+import { newGuid } from './../../helpers/guid.helper';
+import { AfterViewInit, Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -52,7 +51,11 @@ export class CkEditorComponent implements OnInit, AfterViewInit {
         });
 
         // add custom styles to editor
-        this.editor.config.contentsCss = ['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', '/assets/styles/ckeditor.css']
+        this.editor.config.contentsCss =
+            [
+                'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css',
+                '/assets/styles/ckeditor.css'
+            ]
         this.editor.config.allowedContent = true;
     }
 

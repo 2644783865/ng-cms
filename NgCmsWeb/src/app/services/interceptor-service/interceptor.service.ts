@@ -1,10 +1,10 @@
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/map';
+import { GrowlService } from './../growl-service/growl.service';
 import { Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs, Headers } from '@angular/http';
+import { Headers, Http, RequestOptionsArgs } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { GrowlService } from './../growl-service/growl.service';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class InterceptorService {

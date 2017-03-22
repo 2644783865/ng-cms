@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { AuthService } from './../../services/auth-service/auth.service';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'register-form',

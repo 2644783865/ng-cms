@@ -185,7 +185,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -196,10 +196,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContentModel.cs" />
-    <Compile Include="Models\PageTreeModel.cs" />
+    <Compile Include="Models\RouteTreeModel.cs" />
     <Compile Include="Models\PathModel.cs" />
-    <Compile Include="Models\PageModel.cs" />
-    <Compile Include="Models\PageCreateModel.cs" />
+    <Compile Include="Models\RouteModel.cs" />
+    <Compile Include="Models\RouteCreateModel.cs" />
     <Compile Include="Models\ContentUpdateModel.cs" />
     <Compile Include="Models\ContentCreateModel.cs" />
     <Compile Include="Models\RoleListModel.cs" />

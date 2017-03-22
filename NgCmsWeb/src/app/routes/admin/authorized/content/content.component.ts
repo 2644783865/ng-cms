@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { PageService } from './../../../../services/page-service/page.service';
 import { ContentService } from './../../../../services/content-service/content.service';
-import { ContentModel } from './../../../../models/content.model';
+import { RouteService } from './../../../../services/route-service/route.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     templateUrl: 'content.component.html',
@@ -9,7 +8,7 @@ import { ContentModel } from './../../../../models/content.model';
 })
 
 export class Content implements OnInit {
-    constructor(private pageService: PageService, private contentService: ContentService) {
+    constructor(private routeService: RouteService, private contentService: ContentService) {
     }
 
     ngOnInit() {

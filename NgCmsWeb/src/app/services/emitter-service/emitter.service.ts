@@ -1,6 +1,6 @@
-import {Injectable, EventEmitter} from '@angular/core';
-@Injectable()
+import { EventEmitter, Injectable } from '@angular/core';
 
+@Injectable()
 export class EmitterService {
     private static emitters: { [channel: string]: EventEmitter<any> } = {};
 

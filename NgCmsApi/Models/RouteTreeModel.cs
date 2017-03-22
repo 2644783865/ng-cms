@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NgCmsApi.Models
 {
-    public class PageTreeModel
+    public class RouteTreeModel
     {
         [Required]
         [JsonProperty("guid")]
@@ -15,8 +15,8 @@ namespace NgCmsApi.Models
         [JsonProperty("path")]
         public string Path { get; set; }
 
-        [JsonProperty("parentPageGuid")]
-        public Guid? ParentPageGuid { get; set; }
+        [JsonProperty("parentRouteGuid")]
+        public Guid? ParentRouteGuid { get; set; }
 
         [Required]
         [JsonProperty("generation")]

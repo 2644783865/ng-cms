@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ContentModel } from './../../../../models/content.model';
 import { ContentService } from './../../../../services/content-service/content.service';
 import { GrowlService } from './../../../../services/growl-service/growl.service';
-import { ContentModel } from './../../../../models/content.model';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: 'edit-content.component.html',

@@ -26,33 +26,33 @@ using Microsoft.Ajax.Utilities;
 namespace NgCmsApi.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Page")]
-    public class PageController : ApiController
+    [RoutePrefix("api/Route")]
+    public class RouteController : ApiController
     {
-        private readonly PageService _pageService = new PageService();
+        private readonly RouteService _routeService = new RouteService();
 
-        public PageController()
+        public RouteController()
         {
         }
 
         [AllowAnonymous]
-        [Route("GetPagesWithChildren")]
+        [Route("GetRoutes")]
         [HttpGet]
-        public async Task<List<PageTreeModel>> GetPagesWithChildren()
+        public async Task<List<RouteTreeModel>> GetRouteTree()
         {
-            var pageTree = _pageService.GetPageTree();
-            var pages = await _pageService.GetPages();
+            var routeTree = _routeService.GetRouteTree();
+            var routes = await _routeService.GetRoutes();
 
-            Func<int?, Guid?> getPageGuid = (id) =>
+            Func<int?, Guid?> getRouteGuid = (id) =>
             {
-                return pages.FirstOrDefault(p => p.PageId == id)?.Guid;
+                return routes.FirstOrDefault(p => p.RouteId == id)?.Guid;
             };
 
-            return pageTree.Select(p => new PageTreeModel()
+            return routeTree.Select(p => new RouteTreeModel()
             {
                 Guid = p.Guid,
                 Path = p.Path,
-                ParentPageGuid = getPageGuid(p.ParentId),
+                ParentRouteGuid = getRouteGuid(p.ParentId),
                 Generation = p.Generation
             }).ToList();
         }
@@ -62,42 +62,42 @@ namespace NgCmsApi.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> GetByPath(PathModel model)
         {
-            var page = await _pageService.GetPageByPath(model.Path);
+            var route = await _routeService.GetRouteByPath(model.Path);
 
-            if (page == null)
+            if (route == null)
             {
-                return BadRequest("Page not found");
+                return BadRequest("Route not found");
             }
 
-            return Ok(new PageModel()
+            return Ok(new RouteModel()
             {
-                Guid = page.Guid,
-                Path = page.Path,
-                ParentGuid = page.tblPage2.Guid
+                Guid = route.Guid,
+                Path = route.Path,
+                ParentGuid = route.tblRoute2.Guid
             });
         }
 
         [Route("Create")]
         [HttpPost]
-        public async Task<IHttpActionResult> CreatePage(PageCreateModel model)
+        public async Task<IHttpActionResult> CreateRoute(RouteCreateModel model)
         {
-            tblPage page = new tblPage()
+            tblRoute route = new tblRoute()
             {
                 Path = model.Path
             };
 
-            var foundPage = await _pageService.GetPageByPath(model.Path);
+            var foundRoute = await _routeService.GetRouteByPath(model.Path);
 
-            if (foundPage != null) {
-                return BadRequest("Page already exists");
+            if (foundRoute != null) {
+                return BadRequest("Route already exists");
             }
 
-            await _pageService.CreatePage(page);   
+            await _routeService.CreateRoute(route);   
 
-            return Ok(new PageModel()
+            return Ok(new RouteModel()
             {
-                Guid = page.Guid,
-                Path = page.Path
+                Guid = route.Guid,
+                Path = route.Path
             });
         }
     }

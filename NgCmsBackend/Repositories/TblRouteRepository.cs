@@ -8,18 +8,23 @@ using NgCmsBackend.DbContexts;
 
 namespace NgCmsBackend.Repositories
 {
-    public class TblContentRepository : GenericRepository<BaseDbContext, tblContent>
+    public class TblRouteRepository : GenericRepository<BaseDbContext, tblRoute>
     {
-        public TblContentRepository()
+        public TblRouteRepository()
         {
         }
 
-        public TblContentRepository(BaseDbContext dbContext)
+        public TblRouteRepository(BaseDbContext dbContext)
         {
             DbContext = dbContext;
         }
 
-        public async Task<IList<tblContent>> GetContentByRouteGuid(Guid guid)
+        public List<spRouteTree_Result> GetRouteTree()
+        {
+            return DbContext.spRouteTree().ToList();
+        }
+
+        public async Task<IList<tblContent>> GetContentByRouteGuid(Guid guid)    
         {
             return await DbContext.tblContent.Where(x => x.tblRoute.Guid.Equals(guid)).ToListAsync();
         }

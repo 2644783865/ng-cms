@@ -28,8 +28,8 @@ namespace NgCmsApi.Controllers
     [RoutePrefix("api/Content")]
     public class ContentController : ApiController
     {
-        private readonly ContentService contentService = new ContentService();
-        private readonly PageService pageService = new PageService();
+        private readonly ContentService _contentService = new ContentService();
+        private readonly RouteService _routeService = new RouteService();
 
         public ContentController()
         {
@@ -40,7 +40,7 @@ namespace NgCmsApi.Controllers
         [HttpGet]
         public async Task<ContentModel> GetByName(string name)
         {
-            var content = await contentService.GetContentByName(name);
+            var content = await _contentService.GetContentByName(name);
 
             if (content == null)
             {
@@ -60,7 +60,7 @@ namespace NgCmsApi.Controllers
         [HttpGet]
         public async Task<ContentModel> GetByGuid(Guid guid)
         {
-            var content = await contentService.GetContentByGuid(guid);
+            var content = await _contentService.GetContentByGuid(guid);
 
             if (content == null)
             {
@@ -76,11 +76,11 @@ namespace NgCmsApi.Controllers
         }
 
         [AllowAnonymous]
-        [Route("GetByPage/{guid}")]
+        [Route("GetByRoute/{guid}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetByPage(Guid guid)
+        public async Task<IHttpActionResult> GetByRoute(Guid guid)
         {
-            var contentList = await contentService.GetContentByPageGuid(guid);
+            var contentList = await _contentService.GetContentByRouteGuid(guid);
 
             return Ok(contentList.Select(c => new ContentModel()
             {
@@ -96,13 +96,13 @@ namespace NgCmsApi.Controllers
         public async Task<IHttpActionResult> GetByPaths(string[] model)
         {
             var contentList = new List<tblContent>();
-            tblPage page;
+            tblRoute route;
 
             foreach (var path in model)
             {
-                page = await pageService.GetPageByPath(path);
+                route = await _routeService.GetRouteByPath(path);
 
-                contentList.Concat(await contentService.GetContentByPageGuid(page.Guid));
+                contentList.Concat(await _contentService.GetContentByRouteGuid(route.Guid));
             }
 
             return Ok(
@@ -124,32 +124,32 @@ namespace NgCmsApi.Controllers
                 Content = model.Content
             };
 
-            var foundPage = await pageService.GetPageByPath(model.Path);
+            var foundRoute = await _routeService.GetRouteByPath(model.Path);
 
-            if (foundPage != null)
+            if (foundRoute != null)
             {
-                content.PageId = foundPage.PageId;
+                content.RouteId = foundRoute.RouteId;
             }
             else
             {
-                tblPage newPage = new tblPage()
+                tblRoute newRoute = new tblRoute()
                 {
                     Path = model.Path
                 };
 
-                await pageService.CreatePage(newPage);
+                await _routeService.CreateRoute(newRoute);
 
-                content.PageId = newPage.PageId;
+                content.RouteId = newRoute.RouteId;
             }
 
-            var foundContent = await contentService.GetContentByName(model.Name);
+            var foundContent = await _contentService.GetContentByName(model.Name);
 
             if (foundContent != null)
             {
                 return BadRequest("Content already exists");
             }
 
-            await contentService.CreateContent(content);
+            await _contentService.CreateContent(content);
 
             return Ok(content.Guid);
         }
@@ -158,11 +158,11 @@ namespace NgCmsApi.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> UpdateContent(ContentUpdateModel model)
         {
-            var content = await contentService.GetContentByGuid(model.Guid);
+            var content = await _contentService.GetContentByGuid(model.Guid);
 
             content.Content = model.Content;
 
-            await contentService.UpdateContent(content);
+            await _contentService.UpdateContent(content);
 
             return Ok();
         }

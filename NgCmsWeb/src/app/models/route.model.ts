@@ -1,10 +1,13 @@
-export class RouteModel {
-    constructor(path, component, children){
-        this.path = path,
-        this.component = component,
-        this.children = children
-    }
+import { Serializable } from './../interfaces/serializable.interface';
+
+export class RouteModel implements Serializable<RouteModel> {
+    guid: string;
     path: string;
-    component: any;
-    children: Array<RouteModel>;
+
+    deserialize(input) {
+        this.guid = input.guid;
+        this.path = input.path;
+
+        return this;
+    }
 }

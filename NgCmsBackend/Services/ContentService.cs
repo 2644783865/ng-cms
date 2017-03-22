@@ -20,9 +20,9 @@ namespace NgCmsBackend.Services
 
         TblContentRepository ContentRepo => new TblContentRepository(_dbContext);
 
-        public async Task<IList<tblContent>> GetContentByPageGuid(Guid guid)
+        public async Task<IList<tblContent>> GetContentByRouteGuid(Guid guid)
         {
-            return await ContentRepo.GetContentByPageGuid(guid);
+            return await ContentRepo.GetContentByRouteGuid(guid);
         }
 
         public async Task<tblContent> GetContentByName(string name)

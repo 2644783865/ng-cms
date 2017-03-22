@@ -1,5 +1,5 @@
 import { MainRootModule } from './routes/main/main-root.module';
-import { CanActivateMain } from './guards/main.guard';
+import { RouteResolve } from './resolvers/route.resolve';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -14,9 +14,8 @@ import { EmitterService } from './services/emitter-service/emitter.service';
 import { CanActivateAdmin } from './guards/admin.guard';
 import { CanActivateEditor } from './guards/editor.guard';
 import { ContentService } from './services/content-service/content.service';
-import { PageService } from './services/page-service/page.service';
-import { PageResolve } from './resolvers/page.resolve';
-import { MainRoot } from './routes/main/main-root.component';
+import { RouteService } from './services/route-service/route.service';
+import { NotFoundModule } from './routes/not-found/not-found.module';
 import * as $ from 'jquery';
 
 @NgModule({
@@ -29,6 +28,7 @@ import * as $ from 'jquery';
     HttpModule,
     CommonModule,
     MainRootModule,
+    NotFoundModule,
     routing
   ],
   providers: [
@@ -38,10 +38,9 @@ import * as $ from 'jquery';
     EmitterService,
     CanActivateAdmin,
     CanActivateEditor,
-    CanActivateMain,
+    RouteResolve,
     ContentService,
-    PageService,
-    PageResolve
+    RouteService
   ],
   bootstrap: [AppComponent]
 })

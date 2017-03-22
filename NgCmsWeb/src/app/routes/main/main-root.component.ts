@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PageService } from './../../services/page-service/page.service';
-import { RouteModel } from './../../models/route.model';
+import { RouteService } from './../../services/route-service/route.service';
+import { RouteConfigModel } from './../../models/route-config.model';
 import { PageBaseComponent } from './../../components/page-base/page-base.component';
 import { routes } from './main-root.routes';
 
@@ -11,7 +11,7 @@ import { routes } from './main-root.routes';
 })
 
 export class MainRoot {
-    constructor(private pageService: PageService, private router: Router, route: ActivatedRoute) {
-        route.routeConfig.children = this.pageService.getConfig();
+    constructor(private routeService: RouteService, private router: Router, activatedRoute: ActivatedRoute) {
+        this.routeService.checkRoutes();
     }
 }

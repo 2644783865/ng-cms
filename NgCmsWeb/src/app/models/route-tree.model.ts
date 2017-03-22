@@ -1,6 +1,6 @@
-import {Serializable} from './../interfaces/serializable.interface';
+import { Serializable } from './../interfaces/serializable.interface';
 
-export class PageTreeModel implements Serializable<PageTreeModel> {
+export class RouteTreeModel implements Serializable<RouteTreeModel> {
     path: string;
     generation: number;
     parentGuid: string;

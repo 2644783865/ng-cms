@@ -1,9 +1,8 @@
-import { Routes, RouterModule } from '@angular/router';
-import { AdminRoot } from './admin-root.component';
-import { ModuleWithProviders } from '@angular/core';
-import { RegisterFormComponent } from './../../components/register-form/register-form.component';
-import { Login } from './login/login.component';
 import { CanActivateAdmin } from './../../guards/admin.guard';
+import { AdminRoot } from './admin-root.component';
+import { Login } from './login/login.component';
+import { ModuleWithProviders } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
     {

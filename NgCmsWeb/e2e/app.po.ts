@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class NgcmsPage {
+export class NgCmsPage {
   navigateTo() {
     return browser.get('/');
   }

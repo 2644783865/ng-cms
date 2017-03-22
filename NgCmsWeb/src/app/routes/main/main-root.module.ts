@@ -1,10 +1,9 @@
-import { PageBaseModule } from '../../components/page-base/page-base.module';
 import { PageBaseComponent } from '../../components/page-base/page-base.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { PageBaseModule } from '../../components/page-base/page-base.module';
 import { MainRoot } from './main-root.component';
 import { MainRoutes } from './main-root.routes';
-import { RouterModule} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 @NgModule({
     imports: [MainRoutes, CommonModule, PageBaseModule],
