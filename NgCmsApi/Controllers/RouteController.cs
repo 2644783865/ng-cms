@@ -7,7 +7,6 @@ using NgCmsBackend.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NgCmsApi.Models;
-using NgCmsBackend.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using NgCmsBackend.Services;
@@ -17,11 +16,11 @@ namespace NgCmsApi.Controllers
     [Route("api/Route")]
     public class RouteController : Controller
     {
-        private BaseContext _dbContext;
+        private NgCmsMainContext _dbContext;
 
         private readonly RouteService _routeService;
 
-        public RouteController(BaseContext dbContext)
+        public RouteController(NgCmsMainContext dbContext)
         {
             _dbContext = dbContext;
 

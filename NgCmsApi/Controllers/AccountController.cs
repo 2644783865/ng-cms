@@ -7,7 +7,6 @@ using NgCmsBackend.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NgCmsApi.Models;
-using NgCmsBackend.Entities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace NgCmsApi.Controllers

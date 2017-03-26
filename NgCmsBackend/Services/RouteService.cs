@@ -1,5 +1,4 @@
 ﻿using NgCmsBackend.Contexts;
-using NgCmsBackend.Entities;
 using NgCmsBackend.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,9 +13,9 @@ namespace NgCmsBackend.Services
         {
         }
 
-        private BaseContext _dbContext;
+        private NgCmsMainContext _dbContext;
 
-        public RouteService(BaseContext dbContext)
+        public RouteService(NgCmsMainContext dbContext)
         {
             _dbContext = dbContext;
         }

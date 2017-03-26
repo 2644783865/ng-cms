@@ -37,11 +37,12 @@ namespace NgCmsApi
             var connectionString = @"Server=localhost;Database=NgCms;Trusted_Connection=true";
 
             // Set up migrations
-            services.AddDbContext<BaseContext>(x => x.UseSqlServer(connectionString, o => o.MigrationsAssembly("NgCmsBackend")));
-
+            services.AddDbContext<NgCmsIdentityContext>(x => x.UseSqlServer(connectionString)); // Add o => o.MigrationsAssembly("NgCmsBackend") in case of code-first
+            services.AddDbContext<NgCmsMainContext>(x => x.UseSqlServer(connectionString));
+           
             // Add identity to the scope
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<BaseContext>()
+                .AddEntityFrameworkStores<NgCmsIdentityContext>()
                 .AddDefaultTokenProviders();
         }
 

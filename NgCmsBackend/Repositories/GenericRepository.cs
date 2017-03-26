@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace NgCmsBackend.Repositories
 {
-    public abstract class GenericRepository<C, T> : IRepository<T> where C : BaseContext where T : class
+    public abstract class GenericRepository<C, T> : IRepository<T> where C : NgCmsMainContext where T : class
     {
         public C DbContext;
 

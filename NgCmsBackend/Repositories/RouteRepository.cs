@@ -1,18 +1,17 @@
 ﻿using NgCmsBackend.Contexts;
-using NgCmsBackend.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace NgCmsBackend.Repositories
 {
-    public class RouteRepository : GenericRepository<BaseContext, Route>
+    public class RouteRepository : GenericRepository<NgCmsMainContext, Route>
     {
         public RouteRepository()
         {
         }
 
-        public RouteRepository(BaseContext dbContext)
+        public RouteRepository(NgCmsMainContext dbContext)
         {
             DbContext = dbContext;
         }
