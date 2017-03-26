@@ -17,9 +17,9 @@ namespace NgCmsApi.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        private BaseContext _dbContext;
+        private NgCmsIdentityContext _dbContext;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, BaseContext dbContext)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, NgCmsIdentityContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
