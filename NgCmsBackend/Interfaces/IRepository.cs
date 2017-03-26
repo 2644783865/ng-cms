@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NgCmsBackend.Interfaces
 {
-    public interface IRepository<T> where T: class
+    public interface IRepository<T> where T : class
     {
         Task<IList<T>> List();
         Task<T> Insert(T entity);

@@ -1,12 +1,10 @@
-﻿using System;
+﻿using NgCmsBackend.Contexts;
+using NgCmsBackend.Entities;
+using NgCmsBackend.Repositories;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using NgCmsBackend.Repositories;
-using System.Web;
-using NgCmsBackend.DbContexts;
 
 namespace NgCmsBackend.Services
 {
@@ -16,33 +14,18 @@ namespace NgCmsBackend.Services
         {
         }
 
-        private readonly BaseDbContext _dbContext = BaseDbContext.Create();
+        private BaseContext _dbContext;
 
-        TblRouteRepository RouteRepo => new TblRouteRepository(_dbContext);
-
-        public async Task<IList<tblRoute>> GetRoutes()
+        public RouteService(BaseContext dbContext)
         {
-            return await RouteRepo.List();
+            _dbContext = dbContext;
+        }
+        RouteRepository _repo => new RouteRepository(_dbContext);
+
+        public async Task<IList<Route>> GetRoutes()
+        {
+            return await _repo.List();
         }
 
-        public List<spRouteTree_Result> GetRouteTree()
-        {
-            return RouteRepo.GetRouteTree();
-        }
-
-        public async Task<tblRoute> GetRouteByPath(string path)
-        {
-            return await RouteRepo.FindAsync(x => x.Path.Equals(path));
-        }
-
-        public async Task CreateRoute(tblRoute route)
-        {
-            await RouteRepo.Insert(route);
-        }
-
-        public async Task UpdateRoute(tblRoute route)
-        {
-            await RouteRepo.Update(route);
-        }
     }
 }

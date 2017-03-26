@@ -1,174 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Security.Cryptography;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
+using Microsoft.AspNetCore.Mvc;
+using NgCmsBackend.Contexts;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NgCmsApi.Models;
-using NgCmsApi.Providers;
-using NgCmsBackend;
+using NgCmsBackend.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NgCmsApi.Controllers
 {
-    [Authorize]
-    [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    [Route("api/Account")]
+    public class AccountController : Controller
     {
-        private const string LocalLoginProvider = "Local";
-        private ApplicationUserManager _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountController()
+        private BaseContext _dbContext;
+
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, BaseContext dbContext)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _dbContext = dbContext;
+
+            // instantiate services
         }
 
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
-
-        // POST api/Account/Logout
-        [Route("Logout")]
-        public IHttpActionResult Logout()
-        {
-            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-            return Ok();
-        }
-        
-        // POST api/Account/ChangePassword
-        [Route("ChangePassword")]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword,
-                model.NewPassword);
-            
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
-        // POST api/Account/SetPassword
-        [Route("SetPassword")]
-        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId<int>(), model.NewPassword);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
-        // POST api/Account/Register
-        [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterModel model)
         {
-            if (!ModelState.IsValid)
+            if (model.Password != model.ConfirmPassword)
             {
+                ModelState.AddModelError("Error", "Passwords don't match");
                 return BadRequest(ModelState);
             }
 
-            var user = new tblUser {UserName = model.Email};
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
+            var newUser = new IdentityUser
             {
-                return GetErrorResult(result);
-            }
+                UserName = model.Email,
+                Email = model.Email
+            };
 
-            await UserManager.AddToRoleAsync(user.UserId, "Member");
+            var userCreationResult = await _userManager.CreateAsync(newUser, model.Password);
+            if (!userCreationResult.Succeeded)
+            {
+                foreach (var error in userCreationResult.Errors)
+                    ModelState.AddModelError("Error", error.Description);
+                return BadRequest(ModelState);
+            }
 
             return Ok();
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && _userManager != null)
-            {
-                _userManager.Dispose();
-                _userManager = null;
-            }
-
-            base.Dispose(disposing);
-        }
-
-        #region Helpers
-
-        private IAuthenticationManager Authentication
-        {
-            get { return Request.GetOwinContext().Authentication; }
-        }
-
-        private IHttpActionResult GetErrorResult(IdentityResult result)
-        {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-
-            if (!result.Succeeded)
-            {
-                if (result.Errors != null)
-                {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return null;
-        }
-
-        #endregion
     }
 }

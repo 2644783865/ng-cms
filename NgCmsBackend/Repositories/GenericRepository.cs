@@ -1,24 +1,22 @@
-﻿using System;
+﻿using NgCmsBackend.Contexts;
+using NgCmsBackend.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
-using NgCmsBackend.DbContexts;
-using NgCmsBackend.Interfaces;
-using NgCmsBackend.Services;
 
 namespace NgCmsBackend.Repositories
 {
-    public abstract class GenericRepository<C, T> : IRepository<T> where C : BaseDbContext, new() where T : class
+    public abstract class GenericRepository<C, T> : IRepository<T> where C : BaseContext where T : class
     {
         public C DbContext;
 
         protected GenericRepository()
-        {   
+        {
         }
 
         protected GenericRepository(C dbContext)
