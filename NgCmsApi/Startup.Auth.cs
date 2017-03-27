@@ -60,16 +60,16 @@ namespace NgCmsApi
                 TokenValidationParameters = tokenValidationParameters
             });
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = false,
-                AuthenticationScheme = "Cookie",
-                CookieName = Configuration.GetSection("TokenAuthentication:CookieName").Value,
-                TicketDataFormat = new CustomJwtDataFormat(
-                    SecurityAlgorithms.HmacSha256,
-                    tokenValidationParameters)
-            });
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AutomaticAuthenticate = true,
+            //    AutomaticChallenge = false,
+            //    AuthenticationScheme = "Cookie",
+            //    CookieName = Configuration.GetSection("TokenAuthentication:CookieName").Value,
+            //    TicketDataFormat = new CustomJwtDataFormat(
+            //        SecurityAlgorithms.HmacSha256,
+            //        tokenValidationParameters)
+            //});
 
             app.UseMiddleware<TokenProviderMiddleware>(Options.Create(tokenProviderOptions));
         }
@@ -78,9 +78,13 @@ namespace NgCmsApi
         {
             using (var serviceScope = _app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var userManager = serviceScope.ServiceProvider.GetService<UserManager<IdentityUser>>();
-                var user = await userManager.FindByNameAsync(username);
-                var result = await userManager.CheckPasswordAsync(user, password);
+                var _userManager = serviceScope.ServiceProvider.GetService<UserManager<IdentityUser>>();
+                var _signInManager = serviceScope.ServiceProvider.GetService<SignInManager<IdentityUser>>();
+                var user = await _userManager.FindByNameAsync(username);
+                var result = await _userManager.CheckPasswordAsync(user, password);
+
+                // TODO: how to sign in with global scope? can't access this user from within accountcontroller
+                await _signInManager.SignInAsync(user, true);
 
                 if (result)
                 {

@@ -39,6 +39,7 @@ namespace NgCmsApi
                 return _next(context);
             }
 
+
             // Request must be POST with Content-Type: application/x-www-form-urlencoded
             if (!context.Request.Method.Equals("POST")
                || !context.Request.HasFormContentType)

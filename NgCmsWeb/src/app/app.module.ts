@@ -12,7 +12,6 @@ import { AuthService } from './services/auth-service/auth.service';
 import { GrowlService } from './services/growl-service/growl.service';
 import { EmitterService } from './services/emitter-service/emitter.service';
 import { CanActivateAdmin } from './guards/admin.guard';
-import { CanActivateEditor } from './guards/editor.guard';
 import { ContentService } from './services/content-service/content.service';
 import { RouteService } from './services/route-service/route.service';
 import { NotFoundModule } from './routes/not-found/not-found.module';
@@ -37,7 +36,6 @@ import * as $ from 'jquery';
     GrowlService,
     EmitterService,
     CanActivateAdmin,
-    CanActivateEditor,
     RouteResolve,
     ContentService,
     RouteService

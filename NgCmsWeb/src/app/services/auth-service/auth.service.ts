@@ -16,13 +16,13 @@ export class AuthService {
 
     // Saves the token in localStorage
     public setToken(token: any) {
+        debugger;
         if (!token.hasOwnProperty('.expires')) {
             token['.expires'] = new Date(new Date().getTime() + token.expires_in * 1000);
         }
 
         this.token = new TokenModel().deserialize({
             accessToken: token.access_token,
-            tokenType: token.token_type,
             expiresIn: new Date(token['.expires'])
         });
 
@@ -35,8 +35,8 @@ export class AuthService {
         headers.append('Access-Control-Allow-Origin', 'true');
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        return this.interceptor.post('token',
-            `grant_type=password&username=${userName}&password=${password}`, { headers: headers })
+        return this.interceptor.post('api/token',
+            `username=${userName}&password=${password}`, { headers: headers })
             .subscribe(res => {
                 this.setToken(res);
                 this.router.navigate(['/admin/content']);
