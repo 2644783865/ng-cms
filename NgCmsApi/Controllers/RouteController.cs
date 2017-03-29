@@ -10,17 +10,18 @@ using NgCmsApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using NgCmsBackend.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace NgCmsApi.Controllers
 {
     [Route("api/Route")]
     public class RouteController : Controller
     {
-        private NgCmsMainContext _dbContext;
+        private NgCmsContext _dbContext;
 
         private readonly RouteService _routeService;
 
-        public RouteController(NgCmsMainContext dbContext)
+        public RouteController(NgCmsContext dbContext)
         {
             _dbContext = dbContext;
 
@@ -30,7 +31,7 @@ namespace NgCmsApi.Controllers
         [AllowAnonymous]
         [Route("GetRoutes")]
         [HttpGet]
-        public async Task<List<RouteModel>> GetRouteTree()
+        public async Task<List<RouteModel>> GetRoutes()
         {
             var routes = await _routeService.GetRoutes();
 

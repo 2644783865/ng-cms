@@ -1,4 +1,5 @@
 ﻿using NgCmsBackend.Contexts;
+using NgCmsBackend.Entities;
 using NgCmsBackend.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,15 @@ namespace NgCmsBackend.Services
         {
         }
 
-        private NgCmsMainContext _dbContext;
+        private NgCmsContext _dbContext;
 
-        public RouteService(NgCmsMainContext dbContext)
+        public RouteService(NgCmsContext dbContext)
         {
             _dbContext = dbContext;
         }
         RouteRepository _repo => new RouteRepository(_dbContext);
 
-        public async Task<IList<Route>> GetRoutes()
+        public async Task<IList<tblRoute>> GetRoutes()
         {
             return await _repo.List();
         }

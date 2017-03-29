@@ -33,28 +33,36 @@ namespace NgCmsApi
         {
             // Add framework services.
             services.AddMvc();
+            services.AddCors(o => o.AddPolicy("Policy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             var connectionString = @"Server=localhost;Database=NgCms;Trusted_Connection=true";
 
             // Set up migrations
-            services.AddDbContext<NgCmsIdentityContext>(x => x.UseSqlServer(connectionString)); // Add o => o.MigrationsAssembly("NgCmsBackend") in case of code-first
-            services.AddDbContext<NgCmsMainContext>(x => x.UseSqlServer(connectionString));
+            services.AddDbContext<NgCmsContext>(x => x.UseSqlServer(connectionString, o => o.MigrationsAssembly("NgCmsBackend")));
            
             // Add identity to the scope
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<NgCmsIdentityContext>()
+                .AddEntityFrameworkStores<NgCmsContext>() 
                 .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
 
-            app.UseMvc();
-            ConfigureAuth(app);
+            app.UseCors("Policy");
             app.UseIdentity();
+
+            ConfigureAuth(app);
+            app.UseMvc();
+
         }
     }
 }

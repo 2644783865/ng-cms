@@ -11,7 +11,7 @@ export class InterceptorService {
     public baseUrl: string;
 
     constructor(private router: Router, private http: Http, private growlService: GrowlService) {
-        this.baseUrl = 'http://localhost:53203/';
+        this.baseUrl = 'http://localhost:61934/';
     }
 
     // Generic GET-request
@@ -19,7 +19,7 @@ export class InterceptorService {
         let headers = new Headers();
 
         headers.append('Access-Control-Allow-Origin', 'true');
-
+        debugger;
         // If token exists, append it to authorization-header 
         if (localStorage.getItem('token') !== null) {
             headers.append('Authorization', 'Bearer ' +
