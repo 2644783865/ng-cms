@@ -9,29 +9,24 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace NgCmsBackend.Entities
 {
-    public class tblRoute : IEntity
+    public class tblRole : IEntity
     {
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RouteId { get; set; }
+        public int RoleId { get; set; }
 
         [Required]
         public Guid Guid { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Name { get; set; }
 
         [Required]
         public DateTime Created { get; set; }
 
         [Required]
         public DateTime Modified { get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string Path { get; set; }
-
-        public int? ParentRouteId { get; set; }
-
-        [ForeignKey("ParentRouteId")]
-        public virtual tblRoute Route { get; set; }
     }
 }

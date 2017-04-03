@@ -12,7 +12,7 @@ export class CanActivateAdmin implements CanActivate {
     private _baseUrl: string;
     constructor(private interceptorService: InterceptorService,
         private authService: AuthService, private router: Router) {
-        this._baseUrl = 'api/Account/';
+        this._baseUrl = 'api/Auth/';
     }
 
     canActivate() {

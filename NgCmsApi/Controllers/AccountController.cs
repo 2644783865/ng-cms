@@ -4,12 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NgCmsBackend.Contexts;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NgCmsApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using AspNet.Security.OpenIdConnect.Extensions;
+using AspNet.Security.OpenIdConnect.Primitives;
+using AspNet.Security.OpenIdConnect.Server;
 using Microsoft.AspNetCore.Cors;
+using NgCmsApi.Extensions;
+using NgCmsBackend.Entities;
+using NgCmsBackend.Enums;
+using NgCmsBackend.Helpers;
+using NgCmsBackend.Services;
 
 namespace NgCmsApi.Controllers
 {
@@ -17,18 +23,13 @@ namespace NgCmsApi.Controllers
     [Route("api/Account")]
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserService _userService;
+        private readonly RoleService _roleService;
 
-        private NgCmsContext _dbContext;
-
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, NgCmsContext dbContext)
+        public AccountController(NgCmsContext dbContext)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager;
-            _dbContext = dbContext;
+            _userService = new UserService(dbContext);
+            _roleService = new RoleService(dbContext);
         }
 
         [Route("Register")]
@@ -37,60 +38,37 @@ namespace NgCmsApi.Controllers
         {
             if (model.Password != model.ConfirmPassword)
             {
-                ModelState.AddModelError("Error", "Passwords don't match");
-                return BadRequest(ModelState);
+                return BadRequest("Passwords don't match");
             }
 
-            var newUser = new IdentityUser
+            // Add user to admin-role
+            var adminRole = await _roleService.GetRoleById((int)RoleEnum.Admin);
+
+            var newUser = new tblUser()
             {
                 UserName = model.Email,
-                Email = model.Email
+                Password = PasswordHelper.Hash(model.Password),
+                RoleId = adminRole.RoleId
             };
 
-            var userCreationResult = await _userManager.CreateAsync(newUser, model.Password);
-
-            if (!userCreationResult.Succeeded)
-            {
-                foreach (var error in userCreationResult.Errors)
-                    ModelState.AddModelError("Error", error.Description);
-                return BadRequest(ModelState);
-            }
+            await _userService.Create(newUser);
 
             return Ok();
         }
 
         [Authorize]
-        [Route("IsAdmin")]
+        [Route("Test")]
         [HttpGet]
-        public async Task<bool> IsAdmin()
+        public IActionResult Test()
         {
-            await Setup();
-            return await _userManager.IsInRoleAsync(await GetCurrentUser(), "Admin");
-        }
-
-        private async Task<IdentityUser> GetCurrentUser()
-        {
-            return await _userManager.GetUserAsync(User);
-        }
-
-        // Initial setup to get roles set up
-        public async Task<IActionResult> Setup()
-        {
-            var user = await GetCurrentUser();
-
-            var adminRole = await _roleManager.FindByNameAsync("Admin");
-            if (adminRole == null)
+            var claims = new
             {
-                adminRole = new IdentityRole("Admin");
-                await _roleManager.CreateAsync(adminRole);
-            }
+                Subject = User.GetUserId(),
+                User.Identity.Name,
+                Role = User.GetClaim(OpenIdConnectConstants.Claims.Role)
+            };
 
-            if (!await _userManager.IsInRoleAsync(user, adminRole.Name))
-            {
-                await _userManager.AddToRoleAsync(user, adminRole.Name);
-            }
-
-            return Ok();
+            return Json(claims);  
         }
     }
 }

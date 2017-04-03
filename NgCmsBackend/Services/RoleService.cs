@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NgCmsBackend.Services
 {
-    public class RouteService
+    public class RoleService
     {
         public void Dispose()
         {
@@ -16,17 +16,21 @@ namespace NgCmsBackend.Services
 
         private readonly NgCmsContext _dbContext;
 
-        public RouteService(NgCmsContext dbContext)
+        public RoleService(NgCmsContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        RouteRepository _repo => new RouteRepository(_dbContext);
+        RoleRepository _repo => new RoleRepository(_dbContext);
 
-        public async Task<IList<tblRoute>> GetRoutes()
+        public async Task<tblRole> GetRoleById(int roleId)
         {
-            return await _repo.List();
+            return await _repo.FindAsync(x => x.RoleId == roleId);
         }
 
+        public async Task<tblRole> GetRoleByUserId(int userId)
+        {
+            return await _repo.GetRoleByUserId(userId);
+        }
     }
 }

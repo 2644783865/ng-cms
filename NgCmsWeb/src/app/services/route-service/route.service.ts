@@ -34,6 +34,8 @@ export class RouteService {
         return this.interceptor.get(this.baseUrl + 'GetRoutes').map(res => {
             const routeTree = this.constructRouteTree(res);
 
+            debugger;
+
             // set routes based on api-response
             this.routeConfig = routeTree[0].children;
             this.router.config[0].children = this.routeConfig;

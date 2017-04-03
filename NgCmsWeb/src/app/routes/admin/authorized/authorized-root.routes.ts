@@ -10,7 +10,6 @@ export const routes: Routes = [
         path: '', component: AuthorizedRoot, children: [
             { path: 'content', component: Content },
             { path: '', redirectTo: 'content', pathMatch: 'full' },
-            { path: 'users', component: Users },
             { path: 'edit-content/:guid', component: EditContent }
         ]
     },

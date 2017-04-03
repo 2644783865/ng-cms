@@ -15,7 +15,7 @@ namespace NgCmsApi.Models
         [JsonProperty("path")]
         public string Path { get; set; }
 
-        [JsonProperty("parentGuid")]
+        [JsonProperty("parentRouteGuid")]
         public Guid? ParentRouteGuid { get; set; }
     }
 }

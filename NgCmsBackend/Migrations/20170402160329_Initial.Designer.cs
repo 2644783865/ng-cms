@@ -8,9 +8,10 @@ using NgCmsBackend.Contexts;
 namespace NgCmsBackend.Migrations
 {
     [DbContext(typeof(NgCmsContext))]
-    partial class NgCmsContextModelSnapshot : ModelSnapshot
+    [Migration("20170402160329_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

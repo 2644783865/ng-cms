@@ -17,15 +17,11 @@ namespace NgCmsApi.Controllers
     [Route("api/Route")]
     public class RouteController : Controller
     {
-        private NgCmsContext _dbContext;
-
         private readonly RouteService _routeService;
 
         public RouteController(NgCmsContext dbContext)
         {
-            _dbContext = dbContext;
-
-            _routeService = new RouteService(_dbContext);
+            _routeService = new RouteService(dbContext);
         }
 
         [AllowAnonymous]

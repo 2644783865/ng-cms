@@ -19,8 +19,8 @@ export class InterceptorService {
         let headers = new Headers();
 
         headers.append('Access-Control-Allow-Origin', 'true');
-        debugger;
-        // If token exists, append it to authorization-header 
+
+        // If token exists, append it to authorization-header
         if (localStorage.getItem('token') !== null) {
             headers.append('Authorization', 'Bearer ' +
                 JSON.parse(localStorage.getItem('token')).accessToken);
