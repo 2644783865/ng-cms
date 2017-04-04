@@ -21,6 +21,7 @@ export class RouteService {
         return this.interceptor.post(this.baseUrl + 'GetByPath', JSON.stringify(path));
     }
 
+    // todo: implement in backend
     public createRoute(model) {
         return this.interceptor.post(this.baseUrl + 'Create', JSON.stringify(model));
     }
@@ -28,7 +29,7 @@ export class RouteService {
     public setConfig() {
         if (this.routeConfig.length !== 0) {
             // no path found, go back to root
-            this.router.navigate(['/']);
+            this.router.navigate(['/not-found']);
             return Observable.of(null);
         }
         return this.interceptor.get(this.baseUrl + 'GetRoutes').map(res => {
@@ -56,14 +57,6 @@ export class RouteService {
         if (this.routeConfig.length === 0) {
             this.setConfig().subscribe();
         }
-    }
-
-    public getRoutesWithContent() {
-        return this.interceptor.get(this.baseUrl + 'GetRoutesWithContent').map(res => {
-            return res;
-        }).catch(error => {
-            return Observable.of(error);
-        });
     }
 
     constructRouteTree(routes) {

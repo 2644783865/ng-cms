@@ -30,7 +30,7 @@ export class AuthService {
     }
 
     public login(userName: string, password: string) {
-        let headers = new Headers();
+        const headers = new Headers();
 
         headers.append('Access-Control-Allow-Origin', 'true');
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -39,12 +39,12 @@ export class AuthService {
             `grant_type=password&username=${userName}&password=${password}`, { headers: headers })
             .subscribe(res => {
                 this.setToken(res);
-                this.router.navigate(['/admin/content']);
+                this.router.navigate(['/admin']);
             });
     }
 
     public register(email: string, password: string, confirmPassword: string) {
-        let model = new RegisterModel().deserialize({ Email: email, Password: password, ConfirmPassword: confirmPassword });
+        const model = new RegisterModel().deserialize({ Email: email, Password: password, ConfirmPassword: confirmPassword });
 
         return this.interceptor.post(this.baseUrl + 'Register', JSON.stringify(model))
             .subscribe(res => {

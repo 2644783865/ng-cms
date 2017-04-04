@@ -5,7 +5,6 @@ import { AdminRootModule } from './routes/admin/admin-root.module';
 import { NotFound } from './routes/not-found/not-found.component';
 
 export const routes: Routes = [
-    // need to resolve for everything in order to have routes when nav to /2 etc
     { path: '', component: MainRoot},
     { path: 'admin', loadChildren: 'app/routes/admin/admin-root.module#AdminRootModule' },
     { path: 'not-found', component: NotFound},

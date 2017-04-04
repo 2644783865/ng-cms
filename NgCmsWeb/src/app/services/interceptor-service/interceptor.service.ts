@@ -16,7 +16,7 @@ export class InterceptorService {
 
     // Generic GET-request
     public get<T>(path: string, options?: RequestOptionsArgs) {
-        let headers = new Headers();
+        const headers = new Headers();
 
         headers.append('Access-Control-Allow-Origin', 'true');
 
@@ -39,7 +39,7 @@ export class InterceptorService {
 
     // Generic POST-request w/ token included in header
     public post<T>(path: string, body: string, options?: RequestOptionsArgs) {
-        let headers = new Headers();
+        const headers = new Headers();
 
         headers.append('Access-Control-Allow-Origin', 'true');
         headers.append('Content-Type', 'application/json');
