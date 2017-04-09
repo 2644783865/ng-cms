@@ -1,0 +1,22 @@
+@import "./../../../assets/styles/variables";
+@import "./../../../assets/styles/mixins";
+
+.nav-link {
+    border-radius: 0;
+    color: $nav-link-color;
+}
+
+.nav-link:focus, .nav-link:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active{
+    background: $nav-active-background-color;
+}
+
+nav {
+    background: $nav-background-color;
+    height: 95.7vh;
+    border-right: 1px solid $nav-border-color;
+}

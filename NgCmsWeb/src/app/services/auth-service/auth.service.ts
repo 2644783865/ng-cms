@@ -44,7 +44,7 @@ export class AuthService {
     }
 
     public register(email: string, password: string, confirmPassword: string) {
-        const model = new RegisterModel().deserialize({ Email: email, Password: password, ConfirmPassword: confirmPassword });
+        const model = new RegisterModel().deserialize({ email: email, password: password, confirmPassword: confirmPassword });
 
         return this.interceptor.post(this.baseUrl + 'Register', JSON.stringify(model))
             .subscribe(res => {

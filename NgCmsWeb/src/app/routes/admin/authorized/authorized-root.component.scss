@@ -5,6 +5,10 @@
     height: 95.9vh;
 }
 
+.main-content {
+    padding: 10px;
+}
+
 @media (min-width: 992px) {
   .main-container {
       height: 95.7vh;
@@ -17,11 +21,11 @@ a:hover{
 
 .navbar-container {
     background: $nav-background-color;
-    border-bottom: 1px solid $main-font-color;
-    .container {
+    border-bottom: 1px solid $nav-border-color;;
+    
       padding: 0;
       .navbar {
-        background: $nav-background-color;
+        background: $nav-header-background-color;
         .navbar-brand {
           color: $nav-brand-color;
           font-weight: 500;
@@ -30,6 +34,9 @@ a:hover{
           color: $nav-link-color;
         }
       }    
-    }
+    
   }
 
+.sidebar{
+  padding: 0;
+}

@@ -9,6 +9,7 @@ export class TokenModel implements Serializable<TokenModel> {
         this.accessToken = input.accessToken;
         this.expiresIn = new Date(input.expiresIn);
         this.tokenType = input.tokenType;
+
         return this;
     }
 }
