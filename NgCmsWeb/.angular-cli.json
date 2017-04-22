@@ -20,7 +20,6 @@
       "prefix": "app",
       "styles": [
         "./assets/styles/main.scss",
-        "./assets/styles/admin.scss",
         "./assets/styles/animate.min.css"
       ],
       "scripts": [],
