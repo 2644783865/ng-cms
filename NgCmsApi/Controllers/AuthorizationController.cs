@@ -42,7 +42,8 @@ namespace NgCmsApi.Controllers
 
                 var user = await _userService.GetByName(request.Username);
 
-                if (user == null || !PasswordHelper.CheckPassword(user, request.Password))
+                // || !PasswordHelper.CheckPassword(user, request.Password)
+                if (user == null || !PasswordHelper.CompareHash(request.Password, user.Password, user.Salt))
                 {
                     return Forbid(OpenIdConnectServerDefaults.AuthenticationScheme);
                 }

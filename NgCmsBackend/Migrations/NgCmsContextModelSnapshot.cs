@@ -95,6 +95,10 @@ namespace NgCmsBackend.Migrations
 
                     b.Property<int>("RoleId");
 
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(50);

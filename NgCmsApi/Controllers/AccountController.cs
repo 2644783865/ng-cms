@@ -44,11 +44,14 @@ namespace NgCmsApi.Controllers
             // Add user to admin-role
             var adminRole = await _roleService.GetRoleById((int)RoleEnum.Admin);
 
+            var salt = Convert.ToBase64String(new Guid().ToByteArray());
+
             var newUser = new tblUser()
             {
                 UserName = model.Email,
-                Password = PasswordHelper.Hash(model.Password),
-                RoleId = adminRole.RoleId
+                Password = Convert.ToBase64String(PasswordHelper.Hash(model.Password, salt)),
+                RoleId = adminRole.RoleId,
+                Salt = salt
             };
 
             await _userService.Create(newUser);

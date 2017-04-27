@@ -8,7 +8,7 @@ using NgCmsBackend.Contexts;
 namespace NgCmsBackend.Migrations
 {
     [DbContext(typeof(NgCmsContext))]
-    [Migration("20170402160329_Initial")]
+    [Migration("20170427223953_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,6 +95,10 @@ namespace NgCmsBackend.Migrations
                         .HasMaxLength(500);
 
                     b.Property<int>("RoleId");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(500);
 
                     b.Property<string>("UserName")
                         .IsRequired()

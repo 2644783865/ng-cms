@@ -88,6 +88,7 @@ namespace NgCmsBackend.Migrations
                     Modified = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
                     Password = table.Column<string>(maxLength: 500, nullable: false),
                     RoleId = table.Column<int>(nullable: false),
+                    Salt = table.Column<string>(maxLength: 500, nullable: false),
                     UserName = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>

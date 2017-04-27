@@ -8,22 +8,26 @@ namespace NgCmsBackend.Helpers
 {
     public static class PasswordHelper
     {
-        public static string Hash(string password)
+        public static byte[] Hash(string password, string salt)
         {
-            var bytes = new UTF8Encoding().GetBytes(password);
-            byte[] hashBytes;
-            using (var algorithm = new HMACSHA256())
+            byte[] unhashedBytes = Encoding.Unicode.GetBytes(String.Concat(salt, password));
+
+            using (var sha256 = SHA256.Create())
             {
-                hashBytes = algorithm.ComputeHash(bytes);
+                byte[] hashedBytes = sha256.ComputeHash(unhashedBytes);
+                return hashedBytes;
             }
-            return Convert.ToBase64String(hashBytes);
         }
 
-        public static bool CheckPassword(tblUser user, string password)
+        public static bool CompareHash(string attemptedPassword, string password, string salt)
         {
-            var comparePassword = Hash(password);
+            var savedHash = Convert.FromBase64String(password);
 
-            return comparePassword.Equals(user.Password);
-        }
+            string base64Hash = Convert.ToBase64String(savedHash);
+            var attempthash = Hash(attemptedPassword, salt);
+            string base64AttemptedHash = Convert.ToBase64String(attempthash);
+
+            return base64Hash == base64AttemptedHash;
+        }     
     }
 }

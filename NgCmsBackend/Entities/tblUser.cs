@@ -28,6 +28,10 @@ namespace NgCmsBackend.Entities
         public string Password { get; set; }
 
         [Required]
+        [MaxLength(500)]
+        public string Salt { get; set; }
+
+        [Required]
         public DateTime Created { get; set; }
 
         [Required]
