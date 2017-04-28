@@ -44,7 +44,12 @@ namespace NgCmsApi.Controllers
             // Add user to admin-role
             var adminRole = await _roleService.GetRoleById((int)RoleEnum.Admin);
 
-            var salt = Convert.ToBase64String(new Guid().ToByteArray());
+            if (adminRole == null)
+            {
+                return BadRequest("Role doesn't exist");
+            }
+
+            var salt = PasswordHelper.GetSalt();
 
             var newUser = new tblUser()
             {
