@@ -1,4 +1,4 @@
-<nav>
+<nav class="full-height">
 	<ul class="nav nav-pills flex-column">
 		<li class="nav-item" *ngFor="let route of routes">
 			<a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="route.path">{{route.title}}</a>

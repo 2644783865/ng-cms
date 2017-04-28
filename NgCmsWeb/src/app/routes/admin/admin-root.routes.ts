@@ -7,8 +7,16 @@ import { RouterModule, Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: '', component: AdminRoot, children: [
-            { path: 'login', component: Login },
-            { path: '', canActivate: [CanActivateAdmin], loadChildren: 'app/routes/admin/authorized/authorized-root.module#AuthorizedRootModule' }
+            {
+                path:
+                'login',
+                component: Login
+            },
+            {
+                path: '',
+                canActivate: [CanActivateAdmin],
+                loadChildren: 'app/routes/admin/authorized/authorized-root.module#AuthorizedRootModule'
+            }
         ]
     },
 ];

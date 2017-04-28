@@ -1,10 +1,20 @@
 @import "./variables";
 
-.main-container {
-    height: 100vh;
+// admin-section
+.admin {
+  background: $main-background-color;
+  height: 100vh;
+  color: $main-font-color;
+
+  hr{
+    border-top: 1px solid $main-font-color;
+  }
+  .btn:focus, .btn:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
 
-// admin icon
 #admin-icon {
   position: absolute;
   z-index: 1;
@@ -14,18 +24,15 @@
   color: $main-font-color;
 }
 
-.admin {
-  .main-container{
-    background: $main-background-color;
-    color: $main-font-color;
-  }
-  hr{
-    border-top: 1px solid $main-font-color;
-  }
-  .btn:focus, .btn:hover {
-    text-decoration: none;
-    cursor: pointer;
-  }
+// utility
+.full-height {
+  height: calc(100vh - #{$nav-header-height});
+}
+
+.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 // animations

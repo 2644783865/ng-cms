@@ -1,18 +1,7 @@
 @import "./../../../../assets/styles/variables";
-@import "./../../../../assets/styles/mixins";
-
-.main-container {
-    height: 95.9vh;
-}
 
 .main-content {
     padding: 10px;
-}
-
-@media (min-width: 992px) {
-  .main-container {
-      height: 95.7vh;
-  }
 }
 
 a:hover{
@@ -22,21 +11,21 @@ a:hover{
 .navbar-container {
     background: $nav-background-color;
     border-bottom: 1px solid $nav-border-color;;
-    
-      padding: 0;
-      .navbar {
-        background: $nav-header-background-color;
-        .navbar-brand {
-          color: $nav-brand-color;
-          font-weight: 500;
-        }
-        .nav-link {
-          color: $nav-link-color;
-        }
-      }    
-    
-  }
+    padding: 0;
+    height: $nav-header-height;
+    .navbar {
+      background: $nav-header-background-color;
+      .navbar-brand {
+        color: $nav-brand-color;
+        font-weight: 500;
+      }
+      .nav-link {
+        color: $nav-link-color;
+      }
+    }    
+}
 
 .sidebar{
   padding: 0;
 }
+

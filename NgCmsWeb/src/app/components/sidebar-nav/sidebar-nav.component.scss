@@ -1,5 +1,4 @@
 @import "./../../../assets/styles/variables";
-@import "./../../../assets/styles/mixins";
 
 .nav-link {
     border-radius: 0;
@@ -17,6 +16,5 @@
 
 nav {
     background: $nav-background-color;
-    height: 95.7vh;
     border-right: 1px solid $nav-border-color;
 }
