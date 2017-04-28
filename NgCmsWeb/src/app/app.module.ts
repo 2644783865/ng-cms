@@ -14,6 +14,7 @@ import { EmitterService } from './services/emitter-service/emitter.service';
 import { CanActivateAdmin } from './guards/admin.guard';
 import { RouteService } from './services/route-service/route.service';
 import { NotFoundModule } from './routes/not-found/not-found.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
 
 @NgModule({
@@ -25,6 +26,7 @@ import * as $ from 'jquery';
     FormsModule,
     HttpModule,
     CommonModule,
+    NgbModule.forRoot(),
     MainRootModule,
     NotFoundModule,
     routing
