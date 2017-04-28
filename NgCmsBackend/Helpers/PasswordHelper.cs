@@ -10,24 +10,34 @@ namespace NgCmsBackend.Helpers
     {
         public static byte[] Hash(string password, string salt)
         {
-            byte[] unhashedBytes = Encoding.Unicode.GetBytes(String.Concat(salt, password));
+            var unhashedBytes = Encoding.Unicode.GetBytes(String.Concat(salt, password));
 
             using (var sha256 = SHA256.Create())
             {
-                byte[] hashedBytes = sha256.ComputeHash(unhashedBytes);
+                var hashedBytes = sha256.ComputeHash(unhashedBytes);
                 return hashedBytes;
             }
         }
 
         public static bool CompareHash(string attemptedPassword, string password, string salt)
         {
-            var savedHash = Convert.FromBase64String(password);
+            var storedHash = Convert.FromBase64String(password);
 
-            string base64Hash = Convert.ToBase64String(savedHash);
+            var base64Hash = Convert.ToBase64String(storedHash);
             var attempthash = Hash(attemptedPassword, salt);
-            string base64AttemptedHash = Convert.ToBase64String(attempthash);
+            var base64AttemptedHash = Convert.ToBase64String(attempthash);
 
             return base64Hash == base64AttemptedHash;
-        }     
+        }
+
+        public static string GetSalt()
+        {
+            var bytes = new byte[128 / 8];
+            using (var keyGenerator = RandomNumberGenerator.Create())
+            {
+                keyGenerator.GetBytes(bytes);
+                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            }
+        }
     }
 }
