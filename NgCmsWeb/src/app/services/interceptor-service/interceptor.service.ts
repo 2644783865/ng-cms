@@ -64,7 +64,7 @@ export class InterceptorService {
     private throwError(error: any) {
         const obj = error.headers.has('Content-Type') ? error.json() : error;
         const msg = obj.error_description || obj.Message || 'Server error';
-        this.growlService.messageArr.push({ severity: 'error', summary: 'Error Message', detail: msg });
+        this.growlService.showMessage(msg, 'danger');
         return Observable.throw(msg);
     }
 
