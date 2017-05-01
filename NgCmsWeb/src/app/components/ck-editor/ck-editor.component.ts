@@ -1,4 +1,4 @@
-import { newGuid } from './../../helpers/guid.helper';
+import { getGuid } from './../../helpers/object.helper';
 import { AfterViewInit, Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
