@@ -27,7 +27,7 @@ export class CkEditorComponent implements OnInit, AfterViewInit {
     @Output() ready = new EventEmitter();
 
     constructor() {
-        this.id = newGuid();
+        this.id = getGuid();
     }
 
     ngOnInit() {
@@ -55,7 +55,7 @@ export class CkEditorComponent implements OnInit, AfterViewInit {
             [
                 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css',
                 '/assets/styles/ckeditor.css'
-            ]
+            ];
         this.editor.config.allowedContent = true;
     }
 
