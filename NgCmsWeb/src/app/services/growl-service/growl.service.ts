@@ -1,6 +1,6 @@
-import { getGuid } from '../../helpers/object.helper';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
+import { getGuid } from '../../helpers/object.helper';
 import { MessageModel } from '../../models/message.model';
 import { Injectable } from '@angular/core';
 
