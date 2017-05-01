@@ -1,1 +1,19 @@
-manage-routes
+<div class="row">
+	<div class="col-md-6">
+		<form [formGroup]="routeForm" class="form-group" (ngSubmit)="addRoute()">
+			<div class="form-group">
+				<label for="path">Path:</label>
+				<input formControlName="path" class="form-control" name="path" type="text" required>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-default btn-block">Add route</button>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h4>Current routes:</h4>
+		<route-treeview [routeTree]="routes"></route-treeview>
+	</div>
+</div>

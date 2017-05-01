@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor="let route of routeTree">
+        {{route.path}}
+        <route-treeview [routeTree]="route.children"></route-treeview>
+    </li>
+</ul>

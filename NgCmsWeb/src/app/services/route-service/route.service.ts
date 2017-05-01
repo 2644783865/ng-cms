@@ -21,6 +21,14 @@ export class RouteService {
         return this.interceptor.post(this.baseUrl + 'GetByPath', JSON.stringify(path));
     }
 
+    // public getRoutes() {
+    //     const url = this.baseUrl + 'GetRoutes';
+
+    //     return this.interceptor.get(url).catch(error => {
+    //         return Observable.throw(error || 'backend server error');
+    //     });
+    // }
+
     // todo: implement in backend
     public createRoute(model) {
         return this.interceptor.post(this.baseUrl + 'Create', JSON.stringify(model));
@@ -34,7 +42,7 @@ export class RouteService {
         }
         return this.interceptor.get(this.baseUrl + 'GetRoutes').map(res => {
             const routeTree = this.constructRouteTree(res);
-
+            console.log(routeTree);
             // set routes based on api-response
             this.routeConfig = routeTree[0].children;
             this.router.config[0].children = this.routeConfig;
@@ -42,6 +50,14 @@ export class RouteService {
             // reset route-config using new config from routeService and navigate to the requested url
             this.router.resetConfig(this.router.config);
             this.router.navigateByUrl(window.location.pathname);
+            return res;
+        }).catch(error => {
+            return Observable.of(error);
+        });
+    }
+
+    public getRoutes() {
+        return this.interceptor.get(this.baseUrl + 'GetRoutes').map(res => {
             return res;
         }).catch(error => {
             return Observable.of(error);
