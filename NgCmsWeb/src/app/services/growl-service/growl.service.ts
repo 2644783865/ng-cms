@@ -19,6 +19,8 @@ export class GrowlService {
         });
 
         this.messageArr.push(msg);
+
+        // remove message after 5 seconds
         setTimeout(() => {
             this.deleteMsg(msg);
         }, 5000);

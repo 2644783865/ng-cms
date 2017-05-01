@@ -17,6 +17,10 @@ export class SidebarNavComponent {
                 path: '/admin'
             }),
             new RouteNavModel().deserialize({
+                title: 'Manage routes',
+                path: '/admin/manage-routes'
+            }),
+            new RouteNavModel().deserialize({
                 title: 'Go to site',
                 path: '/'
             })
