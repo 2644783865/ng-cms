@@ -1,6 +1,6 @@
 <ul>
-    <li *ngFor="let route of routeTree">
-        {{route.path}} <span (click)="removeRoute(route)">-</span>
+    <li *ngFor="let route of routeTree" class="route-node">
+        {{route.path}} <button type="button" class="btn btn-secondary btn-sm" (click)="removeRoute(route)">Remove</button>
         <route-treeview [routeTree]="route.children"></route-treeview>
     </li>
 </ul>
