@@ -1,3 +1,4 @@
+import { RouteModel } from '../../models/route.model';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import { PageBaseComponent } from './../../components/page-base/page-base.component';
@@ -9,7 +10,9 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class RouteService {
+    public routes: RouteModel[] = [];
     public routeConfig: RouteConfigModel[] = [];
+    public routeTree: RouteConfigModel[] = [];
     private baseUrl: string;
 
     constructor(private interceptor: InterceptorService, private router: Router) {
@@ -21,17 +24,21 @@ export class RouteService {
         return this.interceptor.post(this.baseUrl + 'GetByPath', JSON.stringify(path));
     }
 
-    // public getRoutes() {
-    //     const url = this.baseUrl + 'GetRoutes';
-
-    //     return this.interceptor.get(url).catch(error => {
-    //         return Observable.throw(error || 'backend server error');
-    //     });
-    // }
-
-    // todo: implement in backend
     public createRoute(model) {
-        return this.interceptor.post(this.baseUrl + 'Create', JSON.stringify(model));
+        return this.interceptor.post(this.baseUrl, JSON.stringify(model));
+    }
+
+    public removeRoute(route) {
+        const foundRoute = this.routes.find(x => x.guid === route.guid);
+        const index: number = this.routes.indexOf(foundRoute);
+        if (index !== -1) {
+            this.routes.splice(index, 1);
+        }
+        return this.interceptor.delete(this.baseUrl + '/' + foundRoute.guid);
+    }
+
+    public updateRouteTree(routes) {
+        this.routeTree = this.constructRouteTree(routes);
     }
 
     public setConfig() {
@@ -41,6 +48,8 @@ export class RouteService {
             return Observable.of(null);
         }
         return this.interceptor.get(this.baseUrl + 'GetRoutes').map(res => {
+            this.routes = res;
+
             const routeTree = this.constructRouteTree(res);
             console.log(routeTree);
             // set routes based on api-response
@@ -58,6 +67,7 @@ export class RouteService {
 
     public getRoutes() {
         return this.interceptor.get(this.baseUrl + 'GetRoutes').map(res => {
+            this.routes = res;
             return res;
         }).catch(error => {
             return Observable.of(error);
@@ -89,9 +99,9 @@ export class RouteService {
 
         routes.forEach(function (obj) {
             if (obj[parentAttr] != null) {
-                lookup[obj[parentAttr]][childrenAttr].push(new RouteConfigModel(obj.path, PageBaseComponent, obj.children));
+                lookup[obj[parentAttr]][childrenAttr].push(new RouteConfigModel(obj.path, obj.guid, PageBaseComponent, obj.children));
             } else {
-                routeTree.push(new RouteConfigModel(obj.path, PageBaseComponent, obj.children));
+                routeTree.push(new RouteConfigModel(obj.path, obj.guid, PageBaseComponent, obj.children));
             }
         });
         return routeTree;

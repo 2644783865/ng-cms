@@ -28,5 +28,20 @@ namespace NgCmsBackend.Services
             return await _repo.List();
         }
 
+        public async Task<tblRoute> GetByGuid(Guid guid)
+        {
+            return await _repo.FindAsync(x => x.Guid == guid);
+        }
+
+        public async Task CreateRoute(tblRoute route)
+        {
+            await _repo.Insert(route);
+        }
+
+        public async Task RemoveRoute(tblRoute route)
+        {
+            await _repo.Delete(route);
+        }
+
     }
 }

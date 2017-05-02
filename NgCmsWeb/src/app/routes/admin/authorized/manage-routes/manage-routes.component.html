@@ -2,6 +2,12 @@
 	<div class="col-md-6">
 		<form [formGroup]="routeForm" class="form-group" (ngSubmit)="addRoute()">
 			<div class="form-group">
+				<label>Parent:</label>
+				<select class="form-control" formControlName="parentRouteGuid">
+					<option *ngFor="let route of routeService.routes" [value]="route.guid">{{route.path}}</option>
+				</select>
+			</div>
+			<div class="form-group">
 				<label for="path">Path:</label>
 				<input formControlName="path" class="form-control" name="path" type="text" required>
 			</div>
@@ -14,6 +20,6 @@
 <div class="row">
 	<div class="col-md-12">
 		<h4>Current routes:</h4>
-		<route-treeview [routeTree]="routes"></route-treeview>
+		<route-treeview [routeTree]="routeService.routeTree"></route-treeview>
 	</div>
 </div>

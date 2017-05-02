@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { EmitterService } from '../../services/emitter-service/emitter.service';
+import { RouteService } from '../../services/route-service/route.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'route-treeview',
@@ -8,5 +10,13 @@ import { Component, Input } from '@angular/core';
 
 export class RouteTreeviewComponent {
     @Input() routeTree: any[];
-    constructor() { }
+    constructor(private routeService: RouteService) {
+    }
+
+    removeRoute(route) {
+        this.routeService.removeRoute(route).subscribe(res => {
+            this.routeService.updateRouteTree(this.routeService.routes);
+            EmitterService.emitter('removedRoute').emit();
+        });
+    }
 }

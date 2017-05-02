@@ -1,6 +1,8 @@
+import { EmitterService } from '../../../../services/emitter-service/emitter.service';
+import { RouteModel } from '../../../../models/route.model';
 import { RouteConfigModel } from '../../../../models/route-config.model';
 import { RouteService } from '../../../../services/route-service/route.service';
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,22 +10,30 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     styleUrls: ['manage-routes.component.scss'],
 })
 
-export class ManageRoutes {
+export class ManageRoutes implements OnInit{
     routeForm: FormGroup;
-    routes: RouteConfigModel[];
 
     constructor(private fb: FormBuilder, private routeService: RouteService) {
         routeService.getRoutes().subscribe(res => {
-            this.routes = routeService.constructRouteTree(res);
+            this.routeService.updateRouteTree(res);
         });
         this.routeForm = this.fb.group({
+            parentRouteGuid: [''],
             path: ['']
         });
     }
 
-    addRoute() {
-        console.log(this.routeForm.value);
+    ngOnInit(){
+        EmitterService.emitter('removedRoute').subscribe(res => {
+            // todo: set to root instead when functionality to default-create a root is added
+            this.routeForm.controls['parentRouteGuid'].setValue(undefined);
+        });
+    }
 
-        // todo: add call to create route
+    addRoute() {
+        this.routeService.createRoute(this.routeForm.value).subscribe(res => {
+            this.routeService.routes.push(res);
+            this.routeService.updateRouteTree(this.routeService.routes);
+        });
     }
 }

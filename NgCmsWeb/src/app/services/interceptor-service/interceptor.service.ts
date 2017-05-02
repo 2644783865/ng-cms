@@ -61,6 +61,54 @@ export class InterceptorService {
         }).catch(error => { return this.throwError(error); });
     }
 
+    // Generic PUT-request w/ token included in header
+    public put<T>(path: string, body: string, options?: RequestOptionsArgs) {
+        const headers = new Headers();
+
+        headers.append('Access-Control-Allow-Origin', 'true');
+        headers.append('Content-Type', 'application/json');
+
+        // If token exists, append it to authorization-header 
+        if (localStorage.getItem('token') !== null) {
+            headers.append('Authorization', 'Bearer ' +
+                JSON.parse(localStorage.getItem('token')).accessToken);
+        }
+
+        // In-case of specific request; ignore headers and use parameter instead
+        options = options || { headers: headers };
+
+        return this.http.put(this.baseUrl + path, body, options).map(res => {
+            if (this.hasJsonHeader(res.headers)) {
+                return res.json();
+            }
+            return res;
+        }).catch(error => { return this.throwError(error); });
+    }
+
+    // Generic DELETE-request w/ token included in header
+    public delete<T>(path: string, options?: RequestOptionsArgs) {
+        const headers = new Headers();
+
+        headers.append('Access-Control-Allow-Origin', 'true');
+        headers.append('Content-Type', 'application/json');
+
+        // If token exists, append it to authorization-header 
+        if (localStorage.getItem('token') !== null) {
+            headers.append('Authorization', 'Bearer ' +
+                JSON.parse(localStorage.getItem('token')).accessToken);
+        }
+
+        // In-case of specific request; ignore headers and use parameter instead
+        options = options || { headers: headers };
+
+        return this.http.delete(this.baseUrl + path, options).map(res => {
+            if (this.hasJsonHeader(res.headers)) {
+                return res.json();
+            }
+            return res;
+        }).catch(error => { return this.throwError(error); });
+    }
+
     private throwError(error: any) {
         const obj = error.headers.has('Content-Type') ? error.json() : error;
         const msg = obj.error_description || obj.Message || 'Server error';
