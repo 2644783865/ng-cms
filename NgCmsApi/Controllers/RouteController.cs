@@ -77,6 +77,12 @@ namespace NgCmsApi.Controllers
         public async Task<IActionResult> RemoveRoute(Guid guid)
         {
             var route = await _routeService.GetByGuid(guid);
+            var routes = await _routeService.GetRoutes();
+
+            if (routes.Any(x => x.ParentRouteId == route.RouteId))
+            {
+                return BadRequest("Cant remove a route with children");
+            }
 
             await _routeService.RemoveRoute(route);
 

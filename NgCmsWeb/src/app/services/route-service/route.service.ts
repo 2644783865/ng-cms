@@ -29,16 +29,11 @@ export class RouteService {
     }
 
     public removeRoute(route) {
-        const foundRoute = this.routes.find(x => x.guid === route.guid);
-        const index: number = this.routes.indexOf(foundRoute);
-        if (index !== -1) {
-            this.routes.splice(index, 1);
-        }
-        return this.interceptor.delete(this.baseUrl + '/' + foundRoute.guid);
+        return this.interceptor.delete(this.baseUrl + '/' + route.guid);
     }
 
-    public updateRouteTree(routes) {
-        this.routeTree = this.constructRouteTree(routes);
+    public updateRouteTree() {
+        this.routeTree = this.constructRouteTree(this.routes);
     }
 
     public setConfig() {
