@@ -110,8 +110,8 @@ export class InterceptorService {
     }
 
     private throwError(error: any) {
-        const obj = error.headers.has('Content-Type') ? error.json() : error;
-        const msg = obj.error_description || obj.Message || 'Server error';
+        const obj =  this.hasJsonHeader(error.headers) ? error.json() : error; //error.headers.has('Content-Type')
+        const msg = obj.error_description || obj.Message || obj._body || 'Uncaught error';
         this.growlService.showMessage(msg, 'danger');
         return Observable.throw(msg);
     }
