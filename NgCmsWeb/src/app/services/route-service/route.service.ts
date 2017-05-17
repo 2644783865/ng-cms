@@ -32,10 +32,6 @@ export class RouteService {
         return this.interceptor.delete(this.baseUrl + '/' + route.guid);
     }
 
-    public updateRouteTree() {
-        this.routeTree = this.constructRouteTree(this.routes);
-    }
-
     public setConfig() {
         if (this.routeConfig.length !== 0) {
             // no path found, go back to root
@@ -44,13 +40,7 @@ export class RouteService {
         }
         return this.interceptor.get(this.baseUrl + 'GetRoutes').map(res => {
             this.routes = res;
-
-            const routeTree = this.constructRouteTree(res);
-            console.log(routeTree);
-            // set routes based on api-response
-            this.routeConfig = routeTree[0].children;
-            this.router.config[0].children = this.routeConfig;
-
+            this.updateRouteTree(this.routes);
             // reset route-config using new config from routeService and navigate to the requested url
             this.router.resetConfig(this.router.config);
             this.router.navigateByUrl(window.location.pathname);
@@ -58,6 +48,14 @@ export class RouteService {
         }).catch(error => {
             return Observable.of(error);
         });
+    }
+
+    public updateRouteTree(routes?) {
+        const routeArr = routes || this.routes;
+        this.routeTree = this.constructRouteTree(routeArr);
+        // set routes based on api-response
+        this.routeConfig = this.routeTree[0].children;
+        this.router.config[0].children = this.routeConfig;
     }
 
     public getRoutes() {
@@ -99,6 +97,7 @@ export class RouteService {
                 routeTree.push(new RouteConfigModel(obj.path, obj.guid, PageBaseComponent, obj.children));
             }
         });
+        console.log(routeTree);
         return routeTree;
     };
 }
