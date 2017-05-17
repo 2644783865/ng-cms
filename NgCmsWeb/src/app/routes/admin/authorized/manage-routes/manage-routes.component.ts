@@ -26,8 +26,8 @@ export class ManageRoutes implements OnInit {
         this.routeService.getRoutes().subscribe(res => {
             if (res.length > 0) {
                 this.routeService.updateRouteTree();
-                this.rootRoute = res.find(x => x.parentRouteGuid === null);
-                this.setRootRoute();
+                const route = res.find(x => x.parentRouteGuid === null);
+                this.setRootRoute(route);
                 return;
             }
             // if no route exists, create a default-root
@@ -37,11 +37,11 @@ export class ManageRoutes implements OnInit {
             this.routeService.createRoute(root).subscribe(result => {
                 this.routeService.routes.push(result);
                 this.routeService.updateRouteTree();
-                this.rootRoute = result;
-                this.setRootRoute();
+                this.setRootRoute(result);
             });
         });
         EmitterService.emitter('removedRoute').subscribe(res => {
+            // update dropdown when a route is removed
             let value = undefined;
             if (this.rootRoute !== undefined) {
                 value = this.rootRoute.guid;
@@ -50,7 +50,8 @@ export class ManageRoutes implements OnInit {
         });
     }
 
-    setRootRoute() {
+    setRootRoute(route) {
+        this.rootRoute = route;
         this.routeForm.controls['parentRouteGuid'].setValue(this.rootRoute.guid);
     }
 
