@@ -76,8 +76,8 @@ namespace NgCmsApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> RemoveRoute(Guid guid)
         {
-            var route = await _routeService.GetByGuid(guid);
             var routes = await _routeService.GetRoutes();
+            var route = routes.FirstOrDefault(x => x.Guid == guid);
 
             if (routes.Any(x => x.ParentRouteId == route.RouteId))
             {
