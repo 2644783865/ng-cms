@@ -12,16 +12,10 @@ import { Observable } from 'rxjs/Observable';
 export class RouteService {
     public routes: RouteModel[] = [];
     public routeConfig: RouteConfigModel[] = [];
-    public routeTree: RouteConfigModel[] = [];
     private baseUrl: string;
 
     constructor(private interceptor: InterceptorService, private router: Router) {
         this.baseUrl = 'api/Route/';
-    }
-
-    public getRouteByPath(model) {
-        const path = { path: model };
-        return this.interceptor.post(this.baseUrl + 'GetByPath', JSON.stringify(path));
     }
 
     public createRoute(model) {
@@ -52,9 +46,9 @@ export class RouteService {
 
     public updateRouteTree(routes?) {
         const routeArr = routes || this.routes;
-        this.routeTree = this.constructRouteTree(routeArr);
+        const routeTree = this.constructRouteTree(routeArr);
         // set routes based on api-response
-        this.routeConfig = this.routeTree[0].children;
+        this.routeConfig = routeTree[0].children;
         this.router.config[0].children = this.routeConfig;
     }
 
@@ -94,10 +88,10 @@ export class RouteService {
             if (obj[parentAttr] != null) {
                 lookup[obj[parentAttr]][childrenAttr].push(new RouteConfigModel(obj.path, obj.guid, PageBaseComponent, obj.children));
             } else {
+                // push route with wrapped component for page-base
                 routeTree.push(new RouteConfigModel(obj.path, obj.guid, PageBaseComponent, obj.children));
             }
         });
-        console.log(routeTree);
         return routeTree;
     };
 }
